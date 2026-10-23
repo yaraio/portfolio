@@ -55,4 +55,6 @@ export function installTextures() {
   set('--tex-card', '#F3F0EA', 3);     // index cards and prints
   set('--tex-manila', '#D9CFBD', 19);  // folder
   set('--tex-kraft', '#CBBFAA', 23);   // envelope
+  // the real paper photo, for cards that should look like handled card stock
+  root.setProperty('--tex-photo', `url(${import.meta.env.BASE_URL}paper/crumpled.jpg)`);
 }

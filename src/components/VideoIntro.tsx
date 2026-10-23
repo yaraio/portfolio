@@ -28,7 +28,7 @@ const frag = /* glsl */ `
     alpha = smoothstep(0.02, 0.98, alpha);
 
     float lum = dot(c, vec3(0.299, 0.587, 0.114));
-    vec3 toned = tone * (1.0 + (lum / 0.9 - 1.0) * 1.5); // same contrast as the page photo
+    vec3 toned = tone * (1.0 + (lum / 0.9 - 1.0) * 2.0); // close to the page photo's creases
     gl_FragColor = vec4(mix(c, toned, mixTone) * alpha, alpha);
   }
 `;

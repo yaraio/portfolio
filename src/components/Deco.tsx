@@ -25,6 +25,13 @@ export function PaperFilters() {
           <feColorMatrix in="mask" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 1.9" result="alpha" />
           <feComposite in="SourceGraphic" in2="alpha" operator="in" />
         </filter>
+        {/* uneven typewriter ink */}
+        <filter id="ink" x="-2%" y="-10%" width="104%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="1" seed="2" result="speck" />
+          <feColorMatrix in="speck" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.55" result="alpha" />
+          <feComposite in="SourceGraphic" in2="alpha" operator="in" result="inked" />
+          <feGaussianBlur in="inked" stdDeviation="0.25" />
+        </filter>
         <linearGradient id="clip-metal" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#f4f1f2" />
           <stop offset="0.35" stopColor="#a9a1a4" />
@@ -75,7 +82,7 @@ export function Stamp({ top, bottom, style, small = false }: { top: string; bott
   return (
     <svg className={`stamp${small ? ' stamp--small' : ''}`} viewBox="0 0 120 120" style={style} role="img" aria-label={[top, bottom].filter(Boolean).join(', ')}>
       <defs>
-        <path id={`${id}-t`} d="M 20 60 A 40 40 0 0 1 100 60" />
+        <path id={`${id}-t`} d="M 24.5 60 A 35.5 35.5 0 0 1 95.5 60" />
         <path id={`${id}-b`} d="M 16 60 A 44 44 0 0 0 104 60" />
       </defs>
       <g filter="url(#distress)">

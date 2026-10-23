@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { profile, projects, experience, awards, toolkit, letter, letterTodo, type Project } from '../data/content';
+import { profile, projects, experience, awards, toolkit, letter, letterTodo, indexCard, postcard, type Project } from '../data/content';
 import { Paper, Tape, Stamp, PaperClip, WaxSeal } from './Deco';
 import type { Sheet } from '../paper/useSheet';
 import { drawHero } from '../paper/heroText';
@@ -130,21 +130,16 @@ export function About() {
     <section id="about" className="section">
       <Heading script="About" caps="me" />
       <div className="about">
-        <div className="libcard">
-          <div className="libcard__pocket" aria-hidden="true" />
-          <div className="libcard__card">
-            <div className="libcard__head">
-              <span className="eyebrow">Cornell University Library</span>
-              <span className="libcard__title">{profile.first} {profile.last}</span>
-            </div>
-            <dl className="libcard__rows">
-              <dt>major</dt><dd>Information Science, Systems &amp; Technology</dd>
-              <dt>minor</dt><dd>Comparative Literature</dd>
-              <dt>school</dt><dd>Cornell Engineering</dd>
-              <dt>from</dt><dd>{profile.home}</dd>
-              <dt>due</dt><dd>May 2029</dd>
-            </dl>
-            <Stamp top="checked out" bottom="2025" small style={{ right: 8, top: 6, transform: 'rotate(-14deg)' }} />
+        <div className="idcard">
+          <PaperClip style={{ top: -22, left: 30, transform: 'rotate(4deg)' }} />
+          <div className="idcard__card">
+            <p className="idcard__name">{profile.first} {profile.last}</p>
+            <ul className="idcard__lines">
+              {indexCard.map((l, i) => (
+                <li key={l}><span style={{ transform: `translate(${(i * 7) % 5 - 2}px, ${((i * 3) % 3) - 1}px) rotate(${((i * 5) % 7 - 3) * 0.15}deg)` }}>{l}</span></li>
+              ))}
+              <li /><li />
+            </ul>
           </div>
         </div>
 
@@ -188,20 +183,40 @@ export function Contact() {
   };
   return (
     <section id="contact" className="section">
-      <div className="envelope">
-        <div className="envelope__flap" aria-hidden="true" />
-        <WaxSeal style={{ top: 34, left: '50%', marginLeft: -40 }} />
-        <div className="envelope__body">
-          <Heading script="Say" caps="hi" />
-          <p>I&rsquo;m looking for internships and research in product, design and UI/UX. I&rsquo;d love to hear what you&rsquo;re working on.</p>
-          <div className="envelope__mail">
-            <span id="email" className="caption">{profile.email}</span>
-            <button className="btn" onClick={copy}>{copied === 'copied' ? 'copied!' : copied === 'selected' ? 'selected, press Ctrl+C' : 'copy email'}</button>
+      <Heading script="Say" caps="hi" />
+      <div className="postcard">
+        <div className="postcard__note">
+          <p className="postcard__hi">{postcard.greeting}</p>
+          {postcard.body.map((l) => <p key={l}>{l}</p>)}
+          <p className="postcard__bye">{postcard.signoff}</p>
+          <p className="postcard__sign">{profile.first}</p>
+          <p className="postcard__ps">{postcard.ps}</p>
+        </div>
+        <div className="postcard__address">
+          <div className="postcard__corner">
+            <div className="postage" aria-hidden="true">
+              <div className="postage__paper">
+                <div className="postage__art">
+                  <span className="postage__y">{profile.first}</span>
+                  <span className="postage__year">MMXXVI</span>
+                </div>
+              </div>
+            </div>
+            <Stamp top={postcard.postmark.top} bottom={postcard.postmark.bottom} small style={{ top: 26, transform: 'rotate(-10deg)' }} />
+            <svg className="cancel" viewBox="0 0 160 40" aria-hidden="true">
+              <g filter="url(#distress)" fill="none" stroke="currentColor" strokeWidth="2">
+                {[6, 16, 26, 36].map((y) => <path key={y} d={`M0 ${y} q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0`} />)}
+              </g>
+            </svg>
           </div>
-          <div className="envelope__links">
-            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
+          <ul className="postcard__lines">
+            <li><span className="postcard__label">write to</span> <span id="email">{profile.email}</span>
+              <button className="postcard__copy" onClick={copy}>{copied === 'copied' ? 'copied!' : copied === 'selected' ? 'press Ctrl+C' : '(copy)'}</button>
+            </li>
+            <li><span className="postcard__label">or find me</span> <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a></li>
+            <li><span className="postcard__label">and</span> <a href={profile.github} target="_blank" rel="noopener noreferrer">github</a></li>
+            <li><span className="postcard__label">from</span> {profile.home} &amp; Ithaca, NY</li>
+          </ul>
         </div>
       </div>
     </section>

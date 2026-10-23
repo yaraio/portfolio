@@ -16,9 +16,9 @@ export function loadPhoto(url = PHOTO_URL): Promise<HTMLImageElement | null> {
 /**
  * Evens the photo out to one paper tone and stacks it on a flipped copy of itself,
  * so it can repeat down the page with no visible joins.
- * tone: the paper colour, as [r, g, b]. contrast: 1 keeps the photo's light and shadow.
+ * tone: the paper colour, as [r, g, b]. contrast: how strongly the creases show (1 = as photographed).
  */
-export function bakeFromPhoto(img: HTMLImageElement, tone: readonly number[], contrast = 1.5) {
+export function bakeFromPhoto(img: HTMLImageElement, tone: readonly number[], contrast = 2.6) {
   const cw = Math.min(1600, img.naturalWidth);
   const th = Math.round((img.naturalHeight / img.naturalWidth) * cw);
   const ch = th * 2;
@@ -34,13 +34,13 @@ export function bakeFromPhoto(img: HTMLImageElement, tone: readonly number[], co
 
   const data = ctx.getImageData(0, 0, cw, ch);
   const d = data.data;
-  let sum = 0;
-  for (let i = 0; i < d.length; i += 4) sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-  const mean = sum / (d.length / 4) || 1;
   const lum = new Float32Array(cw * ch);
-  for (let i = 0, p = 0; i < d.length; i += 4, p++) {
-    const l = (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / mean;
-    const k = 1 + (l - 1) * contrast;
+  for (let i = 0, p = 0; i < d.length; i += 4, p++) lum[p] = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+  // divide out the photo's broad lighting, so only the creases are left and turned up
+  const light = boxBlur(lum, cw, ch, Math.round(cw / 14));
+  for (let p = 0, i = 0; p < lum.length; p++, i += 4) {
+    const l = lum[p] / (light[p] || 1);
+    const k = Math.max(0.55, 1 + (l - 1) * contrast);
     lum[p] = l;
     d[i] = Math.min(255, tone[0] * k);
     d[i + 1] = Math.min(255, tone[1] * k);

@@ -144,3 +144,24 @@ export const letter = [
 ];
 // Add a line in your own words here, like what first pulled you into design.
 export const letterTodo = 'Add a line or two in your own words here, like what first pulled you into design.';
+
+// The typed index card in About.
+export const indexCard = [
+  'Info Science, Systems & Tech',
+  'minor in Comparative Literature',
+  'Cornell University, class of 2029',
+  'from Southeast Michigan',
+  'into: product, UX & good stories',
+];
+
+// The postcard at the bottom of the page. Write it the way you'd actually say it.
+export const postcard = {
+  greeting: 'Hi there,',
+  body: [
+    "Thanks for reading all the way down here. I'm looking for internships and research in product, design and UI/UX, but honestly I'm just as happy to talk shop.",
+    "If you're building something thoughtful, or you have a favorite app and a strong opinion about why, write to me.",
+  ],
+  signoff: 'talk soon,',
+  ps: 'P.S. Every project here started as one small "what if." I\'d love to hear yours.',
+  postmark: { top: 'Ithaca · NY', bottom: '2026' },
+};
