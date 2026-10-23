@@ -1,6 +1,6 @@
 // Real paper: if public/paper/crumpled.jpg exists, the site uses that photo instead of
-// the drawn paper. The photo is laid down the page (every other copy flipped so the
-// joins line up), and its colour is evened out to one neutral tone so any photo fits.
+// the drawn paper. It repeats down the page (every other copy flipped so the joins
+// line up), and its colour is evened out to one neutral tone so any photo fits.
 
 export const PHOTO_URL = `${import.meta.env.BASE_URL}paper/crumpled.jpg`;
 
@@ -13,22 +13,24 @@ export function loadPhoto(url = PHOTO_URL): Promise<HTMLImageElement | null> {
   });
 }
 
-/** tone: the paper colour to match, as [r, g, b]. contrast: 1 keeps the photo's light and shadow. */
-export function bakeFromPhoto(img: HTMLImageElement, w: number, h: number, scale: number, tone: readonly number[], contrast = 1) {
-  const cw = Math.max(1, Math.round(w * scale)), ch = Math.max(1, Math.round(h * scale));
+/**
+ * Evens the photo out to one paper tone and stacks it on a flipped copy of itself,
+ * so it can repeat down the page with no visible joins.
+ * tone: the paper colour, as [r, g, b]. contrast: 1 keeps the photo's light and shadow.
+ */
+export function bakeFromPhoto(img: HTMLImageElement, tone: readonly number[], contrast = 1.5) {
+  const cw = Math.min(1600, img.naturalWidth);
+  const th = Math.round((img.naturalHeight / img.naturalWidth) * cw);
+  const ch = th * 2;
   const canvas = document.createElement('canvas');
   canvas.width = cw; canvas.height = ch;
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
   ctx.imageSmoothingQuality = 'high';
-
-  // cover the width; repeat down the page, mirroring every other copy
-  const tileH = Math.round((img.naturalHeight / img.naturalWidth) * cw);
-  for (let y = 0, k = 0; y < ch; y += tileH, k++) {
-    ctx.save();
-    if (k % 2) { ctx.translate(0, y + tileH); ctx.scale(1, -1); ctx.drawImage(img, 0, 0, cw, tileH); }
-    else ctx.drawImage(img, 0, y, cw, tileH);
-    ctx.restore();
-  }
+  ctx.drawImage(img, 0, 0, cw, th);
+  ctx.save();
+  ctx.translate(0, ch); ctx.scale(1, -1);
+  ctx.drawImage(img, 0, 0, cw, th);
+  ctx.restore();
 
   const data = ctx.getImageData(0, 0, cw, ch);
   const d = data.data;
@@ -79,7 +81,7 @@ export function heightFromLum(lum: Float32Array, cw: number, ch: number, scale: 
   const wide = boxBlur(lum, cw, ch, Math.max(2, Math.round(30 * scale)));
   return (px: number, py: number) => {
     const x = Math.min(cw - 1, Math.max(0, Math.round(px * scale)));
-    const y = Math.min(ch - 1, Math.max(0, Math.round(py * scale)));
+    const y = Math.max(0, Math.round(py * scale)) % ch;
     const i = y * cw + x;
     return fine[i] - wide[i];
   };

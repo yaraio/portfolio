@@ -31,11 +31,6 @@ export function PaperFilters() {
           <stop offset="0.6" stopColor="#eae6e7" />
           <stop offset="1" stopColor="#8d8487" />
         </linearGradient>
-        <radialGradient id="wax" cx="0.4" cy="0.35" r="0.75">
-          <stop offset="0" stopColor="#B7AE9F" />
-          <stop offset="0.6" stopColor="#8F8576" />
-          <stop offset="1" stopColor="#625A4F" />
-        </radialGradient>
       </defs>
     </svg>
   );
@@ -60,17 +55,9 @@ export function PaperClip({ style }: { style?: CSSProperties }) {
   );
 }
 
-export function WaxSeal({ letter = 'Y', style, className = '' }: { letter?: string; style?: CSSProperties; className?: string }) {
-  // a slightly lumpy blob, then a pressed ring
-  const blob = 'M50 4 C66 3 78 10 88 22 C97 34 98 48 95 61 C92 76 82 89 66 95 C52 100 36 98 24 90 C11 81 3 67 4 51 C5 34 13 20 26 11 C33 7 41 4 50 4 Z';
-  return (
-    <svg className={`seal ${className}`} viewBox="0 0 100 100" style={style} aria-hidden="true">
-      <path d={blob} fill="url(#wax)" />
-      <circle cx="50" cy="50" r="30" fill="none" stroke="#4E473F" strokeWidth="3" opacity="0.45" />
-      <circle cx="50" cy="50" r="30" fill="none" stroke="#D4CCBE" strokeWidth="1" opacity="0.6" transform="translate(-1 -1)" />
-      <text x="50" y="54" textAnchor="middle" dominantBaseline="middle" className="seal__text">{letter}</text>
-    </svg>
-  );
+export function WaxSeal({ style, className = '' }: { style?: CSSProperties; className?: string }) {
+  // a photo of a real pressed seal (public/images/wax-seal.png)
+  return <img className={`seal ${className}`} src={`${import.meta.env.BASE_URL}images/wax-seal.png`} alt="" style={style} aria-hidden="true" />;
 }
 
 export function Paper({ children, className = '', style, edge = 'rough' }: { children: ReactNode; className?: string; style?: CSSProperties; edge?: 'rough' | 'torn' | 'clean' }) {

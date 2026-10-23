@@ -3,9 +3,12 @@ import { PaperFilters } from './components/Deco';
 import { Hero, Work, Experience, About, Contact } from './components/Sections';
 import { profile } from './data/content';
 import { useSheet } from './paper/useSheet';
+import { hasVideo } from './paper/video';
 
-// three.js only loads when the intro plays
+// three.js only loads when the intro plays. With public/paper/unwrap.mp4 the intro is
+// the filmed paper ball; without it, the 3D one.
 const Intro = lazy(() => import('./components/Intro'));
+const VideoIntro = lazy(() => import('./components/VideoIntro'));
 
 function shouldPlayIntro() {
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return false;
@@ -24,6 +27,8 @@ export default function App() {
   const [intro, setIntro] = useState(PLAY_INTRO);
   const sheet = useSheet();
   const done = useCallback(() => setIntro(false), []);
+  const [video, setVideo] = useState<boolean | null>(null);
+  useEffect(() => { hasVideo().then(setVideo); }, []);
 
   // the page sits still under the paper while it unfolds
   useEffect(() => {
@@ -33,7 +38,7 @@ export default function App() {
 
   const sheetStyle = sheet
     ? sheet.photo
-      ? { backgroundImage: `url(${sheet.bakeURL})`, backgroundSize: '100% auto', backgroundRepeat: 'no-repeat' }
+      ? { backgroundImage: `url(${sheet.bakeURL})`, backgroundSize: '100% auto', backgroundRepeat: 'repeat-y' }
       : { backgroundImage: `url(${sheet.grainURL}), url(${sheet.bakeURL})`, backgroundSize: '256px 256px, 100% auto' }
     : undefined;
 
@@ -62,7 +67,7 @@ export default function App() {
       </footer>
       {intro && (
         <Suspense fallback={<div className="intro" />}>
-          <Intro sheet={sheet} onDone={done} />
+          {video === null ? <div className="intro" /> : video ? <VideoIntro onDone={done} /> : <Intro sheet={sheet} onDone={done} />}
         </Suspense>
       )}
     </div>

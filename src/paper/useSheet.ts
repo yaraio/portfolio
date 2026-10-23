@@ -25,17 +25,17 @@ async function toURL(c: HTMLCanvasElement, type = 'image/png') {
 async function build(pageHeight: number): Promise<Sheet> {
   const [, img] = await Promise.all([loadHeroFonts(), loadPhoto()]);
   const W = window.innerWidth, H = window.innerHeight;
-  const total = Math.max(pageHeight, H) + EXTRA;
   const grain = grainTile();
 
   if (img) {
-    const scale = Math.min(1, 1400 / W);
-    const { canvas, lum, cw, ch } = bakeFromPhoto(img, W, total, scale, SHEET.base);
+    const { canvas, lum, cw, ch } = bakeFromPhoto(img, SHEET.base);
+    const scale = cw / W; // photo spans the page width
     const heightAt = heightFromLum(lum, cw, ch, scale);
     const [bakeURL, grainURL] = await Promise.all([toURL(canvas, 'image/jpeg'), toURL(grain)]);
     return { W, H, scale, heightAt, bake: canvas, grain, bakeURL, grainURL, photo: true };
   }
 
+  const total = Math.max(pageHeight, H) + EXTRA;
   const field = new CreaseField(Math.max(110, H * 0.22), 7);
   const scale = Math.min(0.75, 640 / W);
   const bake = bakeSheet(W, total, field, scale);

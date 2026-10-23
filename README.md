@@ -28,9 +28,11 @@ To add Tracklist screenshots: drop `tracklist-1.png` etc. into `public/images/` 
 
 ## The paper
 
-Put a photo of crumpled-then-flattened paper at `public/paper/crumpled.jpg` and the whole site uses it: the page background, and the sheet in the opening animation (its creases also shape the 3D folds). Any colour of paper works, because the photo is evened out to the page tone set in `src/paper/bake.ts` (`SHEET.base`). Best results: a large, evenly lit, straight-on photo with no table showing at the edges.
+- `public/paper/crumpled.jpg` is the page itself: a real photo of crumpled, flattened paper. It repeats down the page and is evened out to the tone set in `src/paper/bake.ts` (`SHEET.base`), so any paper photo works. Crease strength is the `contrast` value in `src/paper/photo.ts`.
+- `public/paper/unwrap.mp4` (and `unwrap.webm`) is the opening: a filmed paper ball unwrapping, already keyed from green screen. The top half of the video is the colour and the bottom half is the transparency. Delete it to fall back to the 3D unfold.
+- `public/images/wax-seal.png` is the wax seal used around the site.
 
-Without a photo, the site falls back to drawn paper.
+Without the photo, the site falls back to drawn paper.
 
 ## Deploying (when you're ready)
 

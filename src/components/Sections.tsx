@@ -154,14 +154,14 @@ export function About() {
           {letter.map((l) => <p key={l}>{l}</p>)}
           <p className="todo">{letterTodo}</p>
           <p className="letter__sign">{profile.first}</p>
-          <WaxSeal letter={profile.first[0]} className="seal--small" style={{ right: 26, bottom: 22, transform: 'rotate(-8deg)' }} />
+          <WaxSeal className="seal--small" style={{ right: 26, bottom: 22, transform: 'rotate(-8deg)' }} />
         </Paper>
 
         <div className="awards">
           <h3 className="eyebrow">honors</h3>
           {awards.map((a, i) => (
             <div key={a.title} className="award">
-              <WaxSeal letter="★" className="seal--small" style={{ position: 'static', transform: `rotate(${i * 9 - 8}deg)` }} />
+              <WaxSeal className="seal--small" style={{ position: 'static', transform: `rotate(${i * 9 - 8}deg)` }} />
               <div><strong>{a.title}</strong><span>{a.detail}</span></div>
             </div>
           ))}
@@ -190,7 +190,7 @@ export function Contact() {
     <section id="contact" className="section">
       <div className="envelope">
         <div className="envelope__flap" aria-hidden="true" />
-        <WaxSeal letter={profile.first[0]} style={{ top: 34, left: '50%', marginLeft: -40 }} />
+        <WaxSeal style={{ top: 34, left: '50%', marginLeft: -40 }} />
         <div className="envelope__body">
           <Heading script="Say" caps="hi" />
           <p>I&rsquo;m looking for internships and research in product, design and UI/UX. I&rsquo;d love to hear what you&rsquo;re working on.</p>
