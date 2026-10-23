@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { profile, projects, experience, awards, toolkit, letter, letterTodo, indexCard, postcard, certifications, type Project } from '../data/content';
-import { Paper, Tape, Stamp, PaperClip, WaxSeal, deco, type Washi } from './Deco';
+import { Tape, Stamp, WaxSeal, deco, type Washi } from './Deco';
 import type { Sheet } from '../paper/useSheet';
 import { drawHero } from '../paper/heroText';
 
@@ -36,6 +36,7 @@ export function Hero({ sheet }: { sheet: Sheet | null }) {
     <header className="hero" id="top" style={{ height: H }}>
       <canvas ref={ref} className="hero__print" style={sheet ? { width: sheet.W, height: sheet.H } : undefined} aria-hidden="true" />
       <h1 className="sr-only">{profile.first} {profile.last}: {profile.tagline}</h1>
+      {sheet && <HeroDeco W={sheet.W} H={sheet.H} />}
       <div className="hero__after" style={{ top: `calc(${bottom * 100}% + 18px)` }}>
         <ul className="labels" aria-label="What I do">
           {profile.roles.map((r) => <li key={r} className="label">{r}</li>)}
@@ -43,6 +44,21 @@ export function Hero({ sheet }: { sheet: Sheet | null }) {
         <a className="hero__scroll caption" href="#work">turn the page ↓</a>
       </div>
     </header>
+  );
+}
+
+// little things tucked around the printed name: a scrap that says hi, and a paper butterfly.
+// Placed from the same measurements drawHero uses, so they sit by the name at any size.
+function HeroDeco({ W, H }: { W: number; H: number }) {
+  const unit = Math.min(W, H * 1.1);
+  const nameY = H * 0.4;
+  return (
+    <div className="hero__deco" aria-hidden="true">
+      <div className="hi-scrap" style={{ width: unit * 0.19, left: W / 2 - unit * 0.47, top: nameY - unit * 0.13 }}>
+        <span style={{ fontSize: Math.max(13, unit * 0.022) }}>hi, I&rsquo;m</span>
+      </div>
+      <img className="hero__butterfly" src={deco('butterfly.webp')} alt="" style={{ width: unit * 0.17, left: W / 2 + unit * 0.2, top: nameY - unit * 0.12 }} />
+    </div>
   );
 }
 
@@ -120,57 +136,64 @@ export function Experience() {
       <Heading script="Where" caps="I've been" />
       <div className="notebook">
         {experience.map((e, i) => (
-          <Paper key={e.org} edge="torn" className="notebook__page" style={{ transform: `rotate(${[-1.6, 1.2, -0.7][i % 3]}deg)` }}>
+          <div key={e.org} className="notebook__page" style={{ transform: `rotate(${[-1.6, 1.2, -0.7][i % 3]}deg)` }}>
             {i === 1 && <Tape variant="gingham" style={{ top: -14, left: '50%', marginLeft: -48, transform: 'rotate(3deg)' }} />}
-            {i !== 1 && <PaperClip style={{ top: -30, right: 28, transform: 'rotate(8deg)' }} />}
             <p className="caption notebook__when">{e.when}</p>
             <h3>{e.org}</h3>
             <p className="eyebrow">{e.role}</p>
             <p>{e.body}</p>
-          </Paper>
+          </div>
         ))}
       </div>
     </section>
   );
 }
 
+const HONOR_SEALS = ['bee', 'butterfly', 'valley'];
+
 export function About() {
   return (
     <section id="about" className="section">
       <Heading script="About" caps="me" />
       <div className="about">
-        <div className="idcard">
-          <PaperClip style={{ top: -22, left: 30, transform: 'rotate(4deg)' }} />
-          <div className="idcard__card">
+        <div className="about__side">
+          <figure className="oval">
+            {profile.photo
+              ? <><img className="oval__photo" src={img(profile.photo)} alt={`${profile.first} ${profile.last}`} /><img className="oval__frame" src={deco('oval-empty.webp')} alt="" aria-hidden="true" /></>
+              : <img className="oval__frame" src={deco('oval.webp')} alt="" aria-hidden="true" />}
+          </figure>
+          <div className="idcard">
             <p className="idcard__name">{profile.first} {profile.last}</p>
             <ul className="idcard__lines">
               {indexCard.map((l, i) => (
-                <li key={l}><span style={{ transform: `translate(${(i * 7) % 5 - 2}px, ${((i * 3) % 3) - 1}px) rotate(${((i * 5) % 7 - 3) * 0.15}deg)` }}>{l}</span></li>
+                <li key={l}><span style={{ transform: `translate(${(i * 7) % 5 - 2}px, 0) rotate(${((i * 5) % 7 - 3) * 0.15}deg)` }}>{l}</span></li>
               ))}
-              <li /><li />
             </ul>
           </div>
         </div>
 
-        <Paper className="letter">
-          <Tape variant="kraft-tex" style={{ top: -12, right: 30, transform: 'rotate(6deg)' }} />
+        <div className="letter">
           <p className="letter__dear">Dear reader,</p>
           {letter.map((l) => <p key={l}>{l}</p>)}
           <p className="todo">{letterTodo}</p>
           <p className="letter__sign">{profile.first}</p>
-          <WaxSeal className="seal--small" style={{ right: 26, bottom: 22, transform: 'rotate(-8deg)' }} />
-        </Paper>
+          <img className="seal seal--small" src={deco('seal-sprig.webp')} alt="" aria-hidden="true" style={{ right: 34, bottom: 34, transform: 'rotate(-8deg)' }} />
+        </div>
 
         <div className="awards">
           <h3 className="eyebrow">honors</h3>
           {awards.map((a, i) => (
             <div key={a.title} className="award">
-              <WaxSeal className="seal--small" style={{ position: 'static', transform: `rotate(${i * 9 - 8}deg)` }} />
+              <img className="seal seal--small" src={deco(`seal-${HONOR_SEALS[i % 3]}.webp`)} alt="" aria-hidden="true" style={{ position: 'static', transform: `rotate(${i * 9 - 8}deg)` }} />
               <div><strong>{a.title}</strong><span>{a.detail}</span></div>
             </div>
           ))}
-          <h3 className="eyebrow" style={{ marginTop: 18 }}>my toolkit</h3>
-          <ul className="labels labels--small">{toolkit.map((t) => <li key={t} className="label">{t}</li>)}</ul>
+          <div className="toolkit">
+            <div className="toolkit__grid">
+              <h3 className="eyebrow">my toolkit</h3>
+              <ul className="toolkit__list">{toolkit.map((t) => <li key={t}>{t}</li>)}</ul>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -178,11 +201,13 @@ export function About() {
         <h3 className="eyebrow">certifications</h3>
         <ul className="certs__row">
           {certifications.map((c, i) => (
-            <li key={c.name} className="deckle cert" style={{ transform: `rotate(${[-2, 1.5, -1, 2, -1.5][i % 5]}deg)` }}>
-              <WaxSeal gold className="cert__seal" />
-              <span className="cert__issuer">{c.issuer}</span>
-              <span className="cert__name">{c.name}</span>
-              <span className="cert__year caption">certified {c.year}</span>
+            <li key={c.name} className="cert" style={{ transform: `rotate(${[-3, 2, -1.5, 2.5, -2][i % 5]}deg)` }}>
+              <img className="cert__tag" src={deco('tag.webp')} alt="" aria-hidden="true" />
+              <div className="cert__text">
+                <span className="cert__issuer">{c.issuer}</span>
+                <span className="cert__name">{c.name}</span>
+                <span className="cert__year caption">certified {c.year}</span>
+              </div>
             </li>
           ))}
         </ul>
@@ -190,6 +215,8 @@ export function About() {
     </section>
   );
 }
+
+const bare = (url: string) => url.replace(/^https:\/\/(www\.)?/, '');
 
 export function Contact() {
   const [copied, setCopied] = useState<'idle' | 'copied' | 'selected'>('idle');
@@ -211,36 +238,32 @@ export function Contact() {
         <div className="postcard__note">
           <p className="postcard__hi">{postcard.greeting}</p>
           {postcard.body.map((l) => <p key={l}>{l}</p>)}
-          <p className="postcard__bye">{postcard.signoff}</p>
-          <p className="postcard__sign">{profile.first}</p>
           <p className="postcard__ps">{postcard.ps}</p>
         </div>
-        <div className="postcard__address">
-          <div className="postcard__corner">
-            <div className="postage" aria-hidden="true">
-              <div className="postage__paper">
-                <div className="postage__art">
-                  <span className="postage__y">{profile.first}</span>
-                  <span className="postage__year">MMXXVI</span>
-                </div>
+        <p className="postcard__from">{profile.first}</p>
+        <div className="postcard__corner">
+          <div className="postage" aria-hidden="true">
+            <div className="postage__paper">
+              <div className="postage__art">
+                <img src={deco('seal-tulip.webp')} alt="" />
               </div>
             </div>
-            <Stamp top={postcard.postmark.top} bottom={postcard.postmark.bottom} small style={{ top: 26, transform: 'rotate(-10deg)' }} />
-            <svg className="cancel" viewBox="0 0 160 40" aria-hidden="true">
-              <g filter="url(#distress)" fill="none" stroke="currentColor" strokeWidth="2">
-                {[6, 16, 26, 36].map((y) => <path key={y} d={`M0 ${y} q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0`} />)}
-              </g>
-            </svg>
           </div>
-          <ul className="postcard__lines">
-            <li><span className="postcard__label">write to</span> <span id="email">{profile.email}</span>
-              <button className="postcard__copy" onClick={copy}>{copied === 'copied' ? 'copied!' : copied === 'selected' ? 'press Ctrl+C' : '(copy)'}</button>
-            </li>
-            <li><span className="postcard__label">or find me</span> <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a></li>
-            <li><span className="postcard__label">and</span> <a href={profile.github} target="_blank" rel="noopener noreferrer">github</a></li>
-            <li><span className="postcard__label">from</span> {profile.home} &amp; Ithaca, NY</li>
-          </ul>
+          <Stamp top={postcard.postmark.top} bottom={postcard.postmark.bottom} small style={{ transform: 'rotate(-10deg)' }} />
+          <svg className="cancel" viewBox="0 0 160 40" aria-hidden="true">
+            <g filter="url(#distress)" fill="none" stroke="currentColor" strokeWidth="2">
+              {[6, 16, 26, 36].map((y) => <path key={y} d={`M0 ${y} q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0`} />)}
+            </g>
+          </svg>
         </div>
+        <ul className="postcard__lines">
+          <li><span id="email">{profile.email}</span>
+            <button className="postcard__copy" onClick={copy}>{copied === 'copied' ? 'copied!' : copied === 'selected' ? 'press Ctrl+C' : '(copy)'}</button>
+          </li>
+          <li><a href={profile.linkedin} target="_blank" rel="noopener noreferrer">{bare(profile.linkedin)}</a></li>
+          <li><a href={profile.github} target="_blank" rel="noopener noreferrer">{bare(profile.github)}</a></li>
+          <li>{profile.home} &amp; Ithaca, NY</li>
+        </ul>
       </div>
     </section>
   );

@@ -161,7 +161,6 @@ export const postcard = {
     "Thanks for reading all the way down here. I'm looking for internships and research in product, design and UI/UX, but honestly I'm just as happy to talk shop.",
     "If you're building something thoughtful, or you have a favorite app and a strong opinion about why, write to me.",
   ],
-  signoff: 'talk soon,',
   ps: 'P.S. Every project here started as one small "what if." I\'d love to hear yours.',
   postmark: { top: 'Ithaca · NY', bottom: '2026' },
 };
