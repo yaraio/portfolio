@@ -8,7 +8,8 @@
   --card: #F3F0EA;        /* lighter stock for cards and prints */
   --ink: #2B2724;         /* soft black */
   --ink-soft: #6A625A;
-  --accent: #4A423A;      /* accent: deep warm grey, no colour */
+  --accent: #5B4A3B;    /* warm brown ink, from the pressed flowers */
+  --gold: #A88B5A;      /* brass, from the clip and seals */
   --sage: #7C8466;
   --mustard: #B88A3E;
   --rule: #CFC7B9;
@@ -81,14 +82,8 @@ p { margin: 0 0 12px; }
 .paper__bg--clean { box-shadow: var(--shadow); }
 .paper__body { position: relative; }
 
-/* masking tape: translucent, torn ends */
-.tape {
-  position: absolute; z-index: 3; width: 96px; height: 28px; opacity: .82; mix-blend-mode: multiply;
-  clip-path: polygon(0 6%, 4% 0, 7% 12%, 10% 2%, 90% 0, 93% 14%, 96% 3%, 100% 10%, 98% 50%, 100% 92%, 95% 100%, 92% 88%, 88% 100%, 9% 98%, 6% 86%, 3% 100%, 0 90%, 2% 48%);
-}
-.tape--masking { background: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,0)), repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 2px, transparent 2px 5px), #E4DCCB; }
-.tape--kraft { background: linear-gradient(rgba(255,255,255,.12), rgba(0,0,0,.05)), #CBBDA4; }
-.tape--clear { background: rgba(255,255,255,.5); mix-blend-mode: normal; }
+/* washi tape: photos of real tape, slightly see-through */
+.tape { position: absolute; z-index: 3; width: 92px; height: auto; opacity: .9; mix-blend-mode: multiply; pointer-events: none; }
 
 /* stamps, clip, seals */
 .stamp { position: absolute; z-index: 4; width: 116px; height: 116px; color: var(--accent); opacity: .82; mix-blend-mode: multiply; }
@@ -104,9 +99,10 @@ p { margin: 0 0 12px; }
 .labels { list-style: none; padding: 0; margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
 .label {
   font-family: var(--type); font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink);
-  background: var(--card) var(--tex-card); padding: 3px 10px 2px; box-shadow: 0 1px 2px rgba(59,42,30,.25);
-  clip-path: polygon(0 3%, 100% 0, 99% 97%, 1% 100%);
+  background: var(--washi-cream-tex) center / 100% 100% no-repeat; padding: 5px 13px 4px; mix-blend-mode: multiply;
 }
+.label:nth-child(3n + 2) { background-image: var(--washi-mauve); }
+.label:nth-child(3n) { background-image: var(--washi-cream); }
 .label:nth-child(odd) { transform: rotate(-1.4deg); }
 .label:nth-child(even) { transform: rotate(1deg); }
 .labels--small .label { font-size: 11.5px; padding: 2px 8px 1px; }
@@ -119,16 +115,32 @@ p { margin: 0 0 12px; }
 .photo figcaption { margin-top: 8px; text-align: center; }
 
 /* projects */
-.projects { display: grid; gap: clamp(60px, 9vw, 100px); margin-top: 40px; }
-.project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 56px); align-items: center; }
+.projects { display: grid; gap: clamp(70px, 10vw, 120px); margin-top: 50px; }
+.project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 60px); align-items: center; }
 .project--flip .project__shots { order: 2; }
 .project__shots { position: relative; display: grid; gap: 18px; justify-items: center; }
-.project__photo { width: 100%; max-width: 420px; transform: rotate(-2.5deg); }
-.project--flip .project__photo { transform: rotate(2deg); }
-.project__sheet { padding: clamp(24px, 4vw, 40px); }
+
+/* a lace paper doily held by a brass clip; screenshots sit in its plain middle */
+.lace { position: relative; margin: 0; width: 100%; max-width: 470px; transform: rotate(-1.8deg); filter: drop-shadow(0 2px 2px rgba(60, 45, 25, .18)) drop-shadow(0 14px 16px rgba(60, 45, 25, .16)); }
+.project--flip .lace { transform: rotate(1.6deg); }
+.lace__frame { display: block; width: 100%; height: auto; }
+.lace__window { position: absolute; left: 14.9%; right: 14%; top: 28%; bottom: 10.3%; display: grid; place-items: center; text-align: center; overflow: hidden; }
+.lace__window img { width: 100%; height: 100%; object-fit: cover; box-shadow: 0 1px 2px rgba(60, 45, 25, .3); }
+.lace__window .caption { color: #8A775E; font-size: 13px; }
+.project__more { display: flex; gap: 16px; justify-content: center; }
+.project__more .photo { width: 46%; }
+.flowers { position: absolute; z-index: -1; width: 150px; right: -48px; top: -110px; transform: rotate(16deg); filter: drop-shadow(0 6px 6px rgba(60, 45, 25, .2)); pointer-events: none; }
+.flowers--b { right: auto; left: -40px; transform: rotate(-14deg) scaleX(-1); }
+
+/* deckled cotton paper, cut from a photo and stretched with a nine-slice */
+.deckle { position: relative; border: 60px solid transparent; border-image: var(--deckle) 70 fill / 60px / 0 stretch; filter: drop-shadow(0 1px 1px rgba(60, 45, 25, .16)) drop-shadow(0 12px 14px rgba(60, 45, 25, .14)); }
+.project__sheet { padding: 0; margin: -20px; }
+.project__sheet > :not(.deckle__seal):not(.deckle__tape) { position: relative; }
+.deckle__seal { position: absolute; width: 62px; left: 50%; top: -58px; margin-left: -31px; transform: rotate(-8deg); }
+.deckle__tape { width: 110px; right: -54px; top: -50px; left: auto; transform: rotate(32deg); }
 .project__title { font-family: var(--script); color: var(--accent); font-size: clamp(56px, 7vw, 80px); line-height: 1; margin: 6px 0 2px; }
 .project .caption { margin-bottom: 12px; }
-.story-toggle { all: unset; cursor: pointer; font-family: var(--type); color: var(--accent); font-size: 14px; border-bottom: 1px dashed var(--accent); }
+.story-toggle { all: unset; cursor: pointer; font-family: var(--type); color: var(--accent); font-size: 14px; border-bottom: 1px dashed var(--gold); }
 .story { margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--rule); }
 .story h4 { font-family: var(--caps); font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin: 10px 0 4px; }
 .story ul { margin: 0 0 10px; padding-left: 18px; }
@@ -254,4 +266,13 @@ p { margin: 0 0 12px; }
   .project--flip .project__shots { order: 0; }
   .letter { grid-row: auto; }
   .nav__links { gap: 14px; }
+}
+
+@media (max-width: 680px) {
+  .project__sheet { margin: 0 -8px; }
+  .deckle { border-width: 40px; border-image-width: 40px; padding-top: 16px; }
+  .deckle__seal { top: -44px; }
+  .deckle__tape { right: -34px; top: -38px; width: 90px; }
+  .flowers { width: 100px; right: -14px; top: -70px; }
+  .flowers--b { left: -14px; }
 }

@@ -43,8 +43,12 @@ export function PaperFilters() {
   );
 }
 
-export function Tape({ style, className = '', variant = 'masking' }: { style?: CSSProperties; className?: string; variant?: 'masking' | 'kraft' | 'clear' }) {
-  return <span className={`tape tape--${variant} ${className}`} style={style} aria-hidden="true" />;
+// real washi tape, cut from a photo (public/images/deco/washi-*.png)
+export type Washi = 'kraft' | 'kraft-tex' | 'torn' | 'olive' | 'mauve' | 'cream' | 'cream-tex' | 'gingham';
+export const deco = (f: string) => `${import.meta.env.BASE_URL}images/deco/${f}`;
+
+export function Tape({ style, className = '', variant = 'kraft' }: { style?: CSSProperties; className?: string; variant?: Washi }) {
+  return <img className={`tape ${className}`} src={deco(`washi-${variant}.png`)} style={style} alt="" aria-hidden="true" />;
 }
 
 export function PaperClip({ style }: { style?: CSSProperties }) {
@@ -62,9 +66,10 @@ export function PaperClip({ style }: { style?: CSSProperties }) {
   );
 }
 
-export function WaxSeal({ style, className = '' }: { style?: CSSProperties; className?: string }) {
-  // a photo of a real pressed seal (public/images/wax-seal.png)
-  return <img className={`seal ${className}`} src={`${import.meta.env.BASE_URL}images/wax-seal.png`} alt="" style={style} aria-hidden="true" />;
+export function WaxSeal({ style, className = '', gold = false }: { style?: CSSProperties; className?: string; gold?: boolean }) {
+  // photos of real pressed seals: the leaf one, or the small round gold one
+  const src = gold ? deco('seal-gold.png') : `${import.meta.env.BASE_URL}images/wax-seal.png`;
+  return <img className={`seal ${className}`} src={src} alt="" style={style} aria-hidden="true" />;
 }
 
 export function Paper({ children, className = '', style, edge = 'rough' }: { children: ReactNode; className?: string; style?: CSSProperties; edge?: 'rough' | 'torn' | 'clean' }) {

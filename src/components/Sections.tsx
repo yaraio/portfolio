@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { profile, projects, experience, awards, toolkit, letter, letterTodo, indexCard, postcard, type Project } from '../data/content';
-import { Paper, Tape, Stamp, PaperClip, WaxSeal } from './Deco';
+import { Paper, Tape, Stamp, PaperClip, WaxSeal, deco, type Washi } from './Deco';
 import type { Sheet } from '../paper/useSheet';
 import { drawHero } from '../paper/heroText';
 
@@ -46,28 +46,37 @@ export function Hero({ sheet }: { sheet: Sheet | null }) {
   );
 }
 
-function ProjectCard({ p, flip }: { p: Project; flip: boolean }) {
+const PROJECT_TAPES: Washi[] = ['torn', 'mauve', 'olive'];
+
+function ProjectCard({ p, i }: { p: Project; i: number }) {
   const [open, setOpen] = useState(false);
+  const flip = i % 2 === 1;
+  const [first, ...rest] = p.images;
   return (
     <article className={`project${flip ? ' project--flip' : ''}`}>
       <div className="project__shots">
-        {p.images.length ? (
-          p.images.map((f, i) => (
-            <figure key={f} className="photo project__photo" style={{ transform: `rotate(${(i % 2 ? 3 : -2.5) + i}deg)` }}>
-              <Tape variant={i % 2 ? 'kraft' : 'masking'} style={{ top: -12, left: '50%', marginLeft: -48, transform: 'rotate(-4deg)' }} />
-              <div className="photo__img"><img src={img(f)} alt={`${p.title} screenshot ${i + 1}`} /></div>
-            </figure>
-          ))
-        ) : (
-          <figure className="photo project__photo">
-            <Tape variant="masking" style={{ top: -12, left: '50%', marginLeft: -48, transform: 'rotate(-4deg)' }} />
-            <div className="photo__img photo__img--empty"><span className="caption">{p.imageNote} coming soon</span></div>
-            <figcaption className="caption">{p.title}, {p.when}</figcaption>
-          </figure>
+        <figure className="lace">
+          <img className="lace__frame" src={deco('lace.webp')} alt="" aria-hidden="true" />
+          <div className="lace__window">
+            {first ? <img src={img(first)} alt={`${p.title} screenshot`} /> : <span className="caption">{p.imageNote}<br />coming soon</span>}
+          </div>
+        </figure>
+        {rest.length > 0 && (
+          <div className="project__more">
+            {rest.map((f, j) => (
+              <figure key={f} className="photo" style={{ transform: `rotate(${j % 2 ? 3 : -2.5}deg)` }}>
+                <Tape variant={PROJECT_TAPES[(i + j) % 3]} style={{ top: -12, left: '50%', marginLeft: -45, transform: 'rotate(-4deg)' }} />
+                <div className="photo__img"><img src={img(f)} alt={`${p.title} screenshot ${j + 2}`} /></div>
+              </figure>
+            ))}
+          </div>
         )}
-        {p.award && <Stamp top={p.award} bottom={p.when} style={{ right: -14, bottom: -26, transform: `rotate(${flip ? -12 : 9}deg)` }} />}
+        {p.award && <Stamp top={p.award} bottom={p.when} style={{ right: -6, bottom: -30, transform: `rotate(${flip ? -12 : 9}deg)` }} />}
+        {i % 2 === 0 && <img className={`flowers${i ? ' flowers--b' : ''}`} src={deco('flowers.webp')} alt="" aria-hidden="true" />}
       </div>
-      <Paper className="project__sheet">
+      <div className="deckle project__sheet">
+        <WaxSeal gold className="deckle__seal" />
+        <Tape variant={PROJECT_TAPES[i % 3]} className="deckle__tape" />
         <span className="eyebrow">{p.kicker}</span>
         <h3 className="project__title">{p.title}</h3>
         <p className="caption">{p.when} · {p.role}</p>
@@ -88,7 +97,7 @@ function ProjectCard({ p, flip }: { p: Project; flip: boolean }) {
             {p.link && <a href={p.link.href} target="_blank" rel="noopener noreferrer">{p.link.label} →</a>}
           </div>
         )}
-      </Paper>
+      </div>
     </article>
   );
 }
@@ -99,7 +108,7 @@ export function Work() {
       <Heading script="Selected" caps="work" />
       <p className="caption section__note">things I&rsquo;ve made with care (and a lot of caffeine)</p>
       <div className="projects">
-        {projects.map((p, i) => <ProjectCard key={p.id} p={p} flip={i % 2 === 1} />)}
+        {projects.map((p, i) => <ProjectCard key={p.id} p={p} i={i} />)}
       </div>
     </section>
   );
@@ -112,7 +121,7 @@ export function Experience() {
       <div className="notebook">
         {experience.map((e, i) => (
           <Paper key={e.org} edge="torn" className="notebook__page" style={{ transform: `rotate(${[-1.6, 1.2, -0.7][i % 3]}deg)` }}>
-            {i === 1 && <Tape variant="kraft" style={{ top: -14, left: '50%', marginLeft: -48, transform: 'rotate(3deg)' }} />}
+            {i === 1 && <Tape variant="gingham" style={{ top: -14, left: '50%', marginLeft: -48, transform: 'rotate(3deg)' }} />}
             {i !== 1 && <PaperClip style={{ top: -30, right: 28, transform: 'rotate(8deg)' }} />}
             <p className="caption notebook__when">{e.when}</p>
             <h3>{e.org}</h3>
@@ -144,7 +153,7 @@ export function About() {
         </div>
 
         <Paper className="letter">
-          <Tape variant="masking" style={{ top: -12, right: 30, transform: 'rotate(6deg)' }} />
+          <Tape variant="kraft-tex" style={{ top: -12, right: 30, transform: 'rotate(6deg)' }} />
           <p className="letter__dear">Dear reader,</p>
           {letter.map((l) => <p key={l}>{l}</p>)}
           <p className="todo">{letterTodo}</p>

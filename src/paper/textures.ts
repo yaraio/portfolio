@@ -55,6 +55,12 @@ export function installTextures() {
   set('--tex-card', '#F3F0EA', 3);     // index cards and prints
   set('--tex-manila', '#D9CFBD', 19);  // folder
   set('--tex-kraft', '#CBBFAA', 23);   // envelope
+  // full URLs, since a relative url() in a CSS variable resolves against the stylesheet
+  const file = (f: string) => `url(${new URL(import.meta.env.BASE_URL + f, document.baseURI).href})`;
   // the real paper photo, for cards that should look like handled card stock
-  root.setProperty('--tex-photo', `url(${import.meta.env.BASE_URL}paper/crumpled.jpg)`);
+  root.setProperty('--tex-photo', file('paper/crumpled.jpg'));
+  // cut-outs from photos: deckled cotton paper and washi tape (public/images/deco)
+  const deco = (f: string) => file(`images/deco/${f}`);
+  root.setProperty('--deckle', deco('deckle.webp'));
+  for (const w of ['kraft', 'kraft-tex', 'cream', 'cream-tex', 'mauve', 'olive']) root.setProperty(`--washi-${w}`, deco(`washi-${w}.png`));
 }
