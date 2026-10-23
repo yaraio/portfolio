@@ -62,10 +62,43 @@ function HeroDeco({ W, H }: { W: number; H: number }) {
   );
 }
 
+// The project's story as a few pages you flip through, instead of one long expanding block.
+// Every page is laid in the same grid cell, so the card keeps the height of the longest one.
+function Pages({ p }: { p: Project }) {
+  const [at, setAt] = useState(0);
+  const n = p.story.length;
+  const go = (d: number) => setAt((v) => (v + d + n) % n);
+  return (
+    <div className="pages">
+      <div className="pages__stack">
+        {p.story.map((s, k) => (
+          <div key={s.heading} className={`pages__page${k === at ? ' is-on' : ''}`} aria-hidden={k !== at}>
+            <h4>{s.heading}</h4>
+            {s.body && <p>{s.body}</p>}
+            {s.bullets && <ul>{s.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}
+            {k === n - 1 && p.link && <a href={p.link.href} target="_blank" rel="noopener noreferrer" tabIndex={k === at ? 0 : -1}>{p.link.label} →</a>}
+          </div>
+        ))}
+      </div>
+      {n > 1 && (
+        <div className="pages__nav">
+          <button onClick={() => go(-1)} aria-label="previous page">‹</button>
+          <span className="pages__dots" aria-live="polite">
+            {p.story.map((s, k) => (
+              <button key={s.heading} className={k === at ? 'is-on' : ''} onClick={() => setAt(k)} aria-label={`page ${k + 1}: ${s.heading}`} />
+            ))}
+          </span>
+          <button onClick={() => go(1)} aria-label="next page">›</button>
+          <span className="pages__count caption">{at + 1} / {n}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const PROJECT_TAPES: Washi[] = ['torn', 'mauve', 'olive'];
 
 function ProjectCard({ p, i }: { p: Project; i: number }) {
-  const [open, setOpen] = useState(false);
   const flip = i % 2 === 1;
   const [first, ...rest] = p.images;
   return (
@@ -98,21 +131,7 @@ function ProjectCard({ p, i }: { p: Project; i: number }) {
         <p className="caption">{p.when} · {p.role}</p>
         <p>{p.summary}</p>
         <ul className="labels labels--small">{p.tools.map((t) => <li key={t} className="label">{t}</li>)}</ul>
-        <button className="story-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>
-          {open ? '− close the story' : '+ read the story'}
-        </button>
-        {open && (
-          <div className="story">
-            {p.story.map((s) => (
-              <div key={s.heading}>
-                <h4>{s.heading}</h4>
-                {s.body && <p>{s.body}</p>}
-                {s.bullets && <ul>{s.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}
-              </div>
-            ))}
-            {p.link && <a href={p.link.href} target="_blank" rel="noopener noreferrer">{p.link.label} →</a>}
-          </div>
-        )}
+        <Pages p={p} />
       </div>
     </article>
   );
@@ -130,19 +149,34 @@ export function Work() {
   );
 }
 
+// A notebook page that shows the heading, and opens to the details on hover, keyboard
+// focus or a tap (touch screens can't hover, so the tap matters).
+function ExperiencePage({ e, i }: { e: (typeof experience)[number]; i: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <button
+      className={`notebook__page${open ? ' is-open' : ''}`}
+      style={{ ['--tilt' as string]: `${[-1.6, 1.2, -0.7][i % 3]}deg` }}
+      aria-expanded={open}
+      onClick={() => setOpen(!open)}
+    >
+      {i === 1 && <Tape variant="gingham" style={{ top: -14, left: '50%', marginLeft: -48, transform: 'rotate(3deg)' }} />}
+      <span className="caption notebook__when">{e.when}</span>
+      <span className="notebook__org">{e.org}</span>
+      <span className="eyebrow">{e.role}</span>
+      <span className="notebook__more"><span>{e.body}</span></span>
+      <span className="notebook__hint caption" aria-hidden="true">{open ? 'close' : 'open'} ↓</span>
+    </button>
+  );
+}
+
 export function Experience() {
   return (
     <section id="experience" className="section">
       <Heading script="Where" caps="I've been" />
       <div className="notebook">
         {experience.map((e, i) => (
-          <div key={e.org} className="notebook__page" style={{ transform: `rotate(${[-1.6, 1.2, -0.7][i % 3]}deg)` }}>
-            {i === 1 && <Tape variant="gingham" style={{ top: -14, left: '50%', marginLeft: -48, transform: 'rotate(3deg)' }} />}
-            <p className="caption notebook__when">{e.when}</p>
-            <h3>{e.org}</h3>
-            <p className="eyebrow">{e.role}</p>
-            <p>{e.body}</p>
-          </div>
+          <ExperiencePage key={e.org} e={e} i={i} />
         ))}
       </div>
     </section>
@@ -154,7 +188,7 @@ const HONOR_SEALS = ['bee', 'butterfly', 'valley'];
 export function About() {
   return (
     <section id="about" className="section">
-      <Heading script="About" caps="me" />
+      <Heading script="About" caps="the author" />
       <div className="about">
         <div className="about__side">
           <figure className="oval">

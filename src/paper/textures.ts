@@ -62,6 +62,6 @@ export function installTextures() {
   // cut-outs from photos: deckled cotton paper and washi tape (public/images/deco)
   const deco = (f: string) => file(`images/deco/${f}`);
   root.setProperty('--deckle', deco('deckle.webp'));
-  for (const [k, f] of [['spiral', 'spiral.webp'], ['note-clip', 'note-clip.webp'], ['clip-paper', 'paper-clip-tall.webp'], ['collage', 'collage.webp'], ['scrap', 'scrap.webp'], ['postcard', 'postcard.jpg'], ['postcard-blank', 'postcard-blank.jpg']]) root.setProperty(`--${k}`, deco(f));
+  for (const [k, f] of [['spiral', 'spiral.webp'], ['photocard', 'photocard.webp'], ['clip-paper', 'paper-clip-tall.webp'], ['collage', 'collage.webp'], ['scrap', 'scrap.webp'], ['postcard', 'postcard.jpg'], ['postcard-blank', 'postcard-blank.jpg']]) root.setProperty(`--${k}`, deco(f));
   for (const w of ['kraft', 'kraft-tex', 'cream', 'cream-tex', 'mauve', 'olive']) root.setProperty(`--washi-${w}`, deco(`washi-${w}.png`));
 }
