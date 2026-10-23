@@ -165,3 +165,11 @@ export const postcard = {
   ps: 'P.S. Every project here started as one small "what if." I\'d love to hear yours.',
   postmark: { top: 'Ithaca · NY', bottom: '2026' },
 };
+
+export const certifications = [
+  { name: 'IT Fundamentals Pro', issuer: 'TestOut', year: '2024' },
+  { name: 'PC Pro', issuer: 'TestOut', year: '2025' },
+  { name: 'IT Specialist: Device Configuration & Management', issuer: 'Certiport', year: '2024' },
+  { name: 'IT Specialist: HTML & CSS', issuer: 'Certiport', year: '2024' },
+  { name: 'IT Specialist: Java', issuer: 'Certiport', year: '2024' },
+];

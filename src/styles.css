@@ -134,7 +134,7 @@ p { margin: 0 0 12px; }
 
 /* deckled cotton paper, cut from a photo and stretched with a nine-slice */
 .deckle { position: relative; border: 60px solid transparent; border-image: var(--deckle) 70 fill / 60px / 0 stretch; filter: drop-shadow(0 1px 1px rgba(60, 45, 25, .16)) drop-shadow(0 12px 14px rgba(60, 45, 25, .14)); }
-.project__sheet { padding: 0; margin: -20px; }
+.project__sheet { padding: 34px 6px 4px 4px; margin: -20px; }
 .project__sheet > :not(.deckle__seal):not(.deckle__tape) { position: relative; }
 .deckle__seal { position: absolute; width: 62px; left: 50%; top: -58px; margin-left: -31px; transform: rotate(-8deg); }
 .deckle__tape { width: 110px; right: -54px; top: -50px; left: auto; transform: rotate(32deg); }
@@ -192,6 +192,16 @@ p { margin: 0 0 12px; }
 .idcard__lines { list-style: none; margin: 0; padding: 0; }
 .idcard__lines li { height: 25px; border-bottom: 1px solid rgba(120, 145, 168, .38); font-family: var(--type); font-size: 12px; line-height: 30px; color: #34302C; white-space: nowrap; overflow: hidden; }
 .idcard__lines span { display: inline-block; filter: url(#ink); }
+
+/* certifications: small certificates on deckled paper */
+.certs { margin-top: clamp(56px, 8vw, 84px); }
+.certs__row { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 44px 22px; }
+@media (min-width: 960px) { .certs__row { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.cert { border-width: 30px; border-image-width: 30px; padding-top: 22px; text-align: center; display: grid; gap: 6px; align-content: start; min-height: 190px; }
+.cert__seal { position: absolute; width: 44px; left: 50%; top: -34px; margin-left: -22px; }
+.cert__issuer { font-family: var(--caps); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.cert__name { font-style: italic; font-size: 15px; line-height: 1.35; color: var(--accent); }
+.cert__year { font-size: 12px; margin-top: 4px; }
 
 /* say hi: a postcard */
 .postcard {
@@ -270,9 +280,13 @@ p { margin: 0 0 12px; }
 
 @media (max-width: 680px) {
   .project__sheet { margin: 0 -8px; }
-  .deckle { border-width: 40px; border-image-width: 40px; padding-top: 16px; }
+  .deckle { border-width: 40px; border-image-width: 40px; padding-top: 30px; }
   .deckle__seal { top: -44px; }
   .deckle__tape { right: -34px; top: -38px; width: 90px; }
   .flowers { width: 100px; right: -14px; top: -70px; }
   .flowers--b { left: -14px; }
+}
+@media (max-width: 520px) {
+  .certs__row { grid-template-columns: minmax(0, 1fr); max-width: 300px; margin-inline: auto; }
+  .cert { min-height: 0; }
 }

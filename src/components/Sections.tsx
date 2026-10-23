@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { profile, projects, experience, awards, toolkit, letter, letterTodo, indexCard, postcard, type Project } from '../data/content';
+import { profile, projects, experience, awards, toolkit, letter, letterTodo, indexCard, postcard, certifications, type Project } from '../data/content';
 import { Paper, Tape, Stamp, PaperClip, WaxSeal, deco, type Washi } from './Deco';
 import type { Sheet } from '../paper/useSheet';
 import { drawHero } from '../paper/heroText';
@@ -172,6 +172,20 @@ export function About() {
           <h3 className="eyebrow" style={{ marginTop: 18 }}>my toolkit</h3>
           <ul className="labels labels--small">{toolkit.map((t) => <li key={t} className="label">{t}</li>)}</ul>
         </div>
+      </div>
+
+      <div className="certs" id="certifications">
+        <h3 className="eyebrow">certifications</h3>
+        <ul className="certs__row">
+          {certifications.map((c, i) => (
+            <li key={c.name} className="deckle cert" style={{ transform: `rotate(${[-2, 1.5, -1, 2, -1.5][i % 5]}deg)` }}>
+              <WaxSeal gold className="cert__seal" />
+              <span className="cert__issuer">{c.issuer}</span>
+              <span className="cert__name">{c.name}</span>
+              <span className="cert__year caption">certified {c.year}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
