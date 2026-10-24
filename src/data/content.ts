@@ -92,7 +92,7 @@ export const projects: Project[] = [
     when: 'Feb – Oct 2026',
     role: 'Development & marketing',
     summary:
-      "The site, app and merch for Southeast Michigan's largest hackathon: about 300 hackers and more than 15 sponsors, including Google, Red Bull and Ford.",
+      "The site, app and merch for Southeast Michigan's largest hackathon, built alongside the team that ran it.",
     tools: ['React', 'TypeScript', 'Figma', 'Canva'],
     images: [],
     imageNote: 'site, app or merch photo',
@@ -104,6 +104,10 @@ export const projects: Project[] = [
           'Designed web, app and merchandise assets in Figma and Canva.',
           'Connected the design and development teams so both shipped the same vision.',
         ],
+      },
+      {
+        heading: 'How it landed',
+        body: 'About 300 hackers came for the weekend, the biggest hackathon in Southeast Michigan, and more than 15 sponsors signed on, including Google, Red Bull and Ford. The site and merch were the first thing every one of them saw.',
       },
     ],
   },

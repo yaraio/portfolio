@@ -160,6 +160,8 @@ body { position: relative; }
 .deckle { position: relative; border: 60px solid transparent; border-image: var(--deckle) 70 fill / 60px / 0 stretch; filter: drop-shadow(0 1px 1px rgba(60, 45, 25, .16)) drop-shadow(0 12px 14px rgba(60, 45, 25, .14)); }
 .project__sheet { padding: 34px 6px 4px 4px; margin: -20px; }
 .project__sheet > :not(.deckle__seal):not(.deckle__tape) { position: relative; }
+.project__sheet > .eyebrow { font-size: 14px; letter-spacing: .16em; color: var(--ink); }
+.project__sheet > .caption { font-size: 15.5px; color: #3A332C; }
 .deckle__seal { position: absolute; width: 62px; left: 50%; top: -58px; margin-left: -31px; transform: rotate(-8deg); }
 .deckle__tape { width: 110px; right: -54px; top: -50px; left: auto; transform: rotate(32deg); }
 .project__title { font-family: var(--script); color: var(--accent); font-size: calc((clamp(56px, 7vw, 80px)) * var(--script-scale)); line-height: 1; margin: 6px 0 2px; }
@@ -169,7 +171,7 @@ body { position: relative; }
 .pages__stack { display: grid; }
 .pages__page { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateX(14px); transition: opacity .35s ease, transform .35s ease, visibility 0s .35s; }
 .pages__page.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
-.pages__page h4 { font-family: var(--caps); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin: 4px 0 6px; }
+.pages__page h4 { font-family: var(--caps); font-size: 14px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); margin: 4px 0 6px; }
 .pages__page p { margin: 0 0 8px; }
 .pages__page ul { margin: 0 0 8px; padding-left: 18px; }
 .pages__page li { margin-bottom: 4px; }
@@ -193,7 +195,8 @@ body { position: relative; }
 }
 .notebook__page:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 .notebook__org { font-family: var(--caps); font-size: 19px; color: var(--accent); line-height: 1.3; }
-.notebook__when { margin-bottom: 2px; }
+.notebook__when { margin-bottom: 2px; font-size: 15px; color: #3A332C; }
+.notebook__page .eyebrow { font-size: 14px; letter-spacing: .16em; color: var(--ink); }
 .notebook__more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s ease; }
 .notebook__more > span { overflow: hidden; font-size: 16.5px; line-height: 26px; padding-top: 0; transition: padding-top .45s ease; }
 .notebook__hint { position: absolute; right: 24px; bottom: 16px; font-size: 12px; opacity: .75; transition: opacity .3s; }
@@ -271,13 +274,13 @@ body { position: relative; }
 .postcard {
   position: relative; max-width: 880px; margin: 40px auto 0; transform: rotate(-.8deg);
   aspect-ratio: 735 / 490; container-type: inline-size;
-  background: var(--postcard) 0 0 / 100% 100% no-repeat;
+  background: linear-gradient(rgba(250, 246, 238, .3), rgba(250, 246, 238, .3)), var(--postcard) 0 0 / 100% 100% no-repeat;
   box-shadow: 0 1px 1px rgba(40, 30, 20, .14), 0 10px 14px -8px rgba(40, 30, 20, .3), 0 34px 40px -30px rgba(40, 30, 20, .55);
 }
 .postcard__note { position: absolute; left: 4.6%; top: 15.5%; width: 41.5%; }
-.postcard__note p { margin: 0 0 .7em; font-style: italic; font-size: clamp(12px, 1.95cqw, 17.5px); line-height: 1.5; color: #2E2924; }
-.postcard__note .postcard__hi { font-family: var(--script); font-style: normal; font-size: calc((5.4cqw) * var(--script-scale)); line-height: 1; color: var(--accent); margin-bottom: .25em; }
-.postcard__note .postcard__ps { font-family: var(--type); font-style: normal; font-size: clamp(10px, 1.45cqw, 13px); color: var(--ink-soft); margin-top: 1em; }
+.postcard__note p { margin: 0 0 .7em; font-style: italic; font-weight: 600; font-size: clamp(12.5px, 2.05cqw, 18px); line-height: 1.45; color: #1E1915; }
+.postcard__note .postcard__hi { font-family: var(--script); font-style: normal; font-weight: 400; font-size: calc((5.4cqw) * var(--script-scale)); line-height: 1; color: var(--accent); margin-bottom: .25em; }
+.postcard__note .postcard__ps { font-family: var(--type); font-style: normal; font-weight: 400; font-size: clamp(10.5px, 1.6cqw, 14px); color: #2A2420; margin-top: 1em; }
 .postcard__from { position: absolute; left: 13.5%; top: 80.5%; margin: 0; font-family: var(--script); font-size: calc((6cqw) * var(--script-scale)); line-height: 1; color: var(--accent); transform: rotate(-4deg); }
 .postcard__corner { position: absolute; left: 56%; right: 3.4%; top: 4%; height: 26%; }
 .postage { position: absolute; right: 0; top: 2%; width: 15.5cqw; transform: rotate(3deg); filter: drop-shadow(0 1px .6px rgba(40, 30, 20, .45)) drop-shadow(0 3px 4px rgba(40, 30, 20, .15)); }
@@ -291,17 +294,22 @@ body { position: relative; }
 .postcard__corner .stamp { left: 10%; top: 18%; width: 9.5cqw; height: 9.5cqw; z-index: 6; color: #3F3A35; opacity: .7; }
 .cancel { position: absolute; left: 25%; top: 34%; width: 44%; height: 30%; color: #3F3A35; opacity: .5; mix-blend-mode: multiply; z-index: 6; }
 .postcard__lines { position: absolute; left: 56.7%; right: 9.3%; top: 39%; margin: 0; padding: 0; list-style: none; }
-.postcard__lines li { height: 5.45cqw; display: flex; align-items: flex-end; padding: 0 0 .5cqw 1cqw; font-family: var(--type); font-size: clamp(10.5px, 1.6cqw, 14.5px); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.postcard__lines a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted rgba(70, 60, 50, .6); }
+.postcard__lines li { height: 5.45cqw; display: flex; align-items: flex-end; padding: 0 0 .5cqw 1cqw; font-family: var(--type); font-size: clamp(11px, 1.7cqw, 15px); color: #1E1915; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.postcard__lines a { color: #1E1915; text-decoration: none; border-bottom: 1px dotted rgba(70, 60, 50, .6); }
 .postcard__lines a:hover { border-bottom-style: solid; }
-.postcard__copy { font: inherit; font-size: .85em; color: var(--ink-soft); background: none; border: 0; padding: 0 0 0 6px; cursor: var(--quill-tap, pointer); text-decoration: underline dotted; }
+/* the printed labels, in the site's own fonts (erased from the postcard photo) */
+.postcard__title { position: absolute; left: 4.4%; top: 5.2%; margin: 0; font-family: var(--caps); font-size: 4.6cqw; letter-spacing: .2em; text-transform: uppercase; line-height: 1; color: #2A221C; }
+.postcard__fromlabel { position: absolute; left: 4.5%; top: 86.6%; font-family: var(--type); font-size: 2.1cqw; letter-spacing: .25em; text-transform: uppercase; line-height: 1; color: #2A221C; }
+.postcard__copy { font: inherit; font-size: .85em; color: #4A423A; background: none; border: 0; padding: 0 0 0 6px; cursor: var(--quill-tap, pointer); text-decoration: underline dotted; }
 .postcard__copy:hover { color: var(--ink); }
 /* narrow screens: the same card, stacked, on a blank piece of the postcard */
 @media (max-width: 680px) {
-  .postcard { aspect-ratio: auto; transform: none; background: var(--postcard-blank) 0 0 / cover; padding: 26px 22px 30px; display: grid; }
+  .postcard { aspect-ratio: auto; transform: none; background: linear-gradient(rgba(250, 246, 238, .3), rgba(250, 246, 238, .3)), var(--postcard-blank) 0 0 / cover; padding: 26px 22px 30px; display: grid; }
   .postcard__note, .postcard__from, .postcard__corner, .postcard__lines { position: relative; inset: auto; width: auto; }
-  .postcard__note p { font-size: 17px; }
+  .postcard__note p { font-size: 18px; }
   .postcard__note .postcard__hi { font-size: calc(46px * var(--script-scale)); }
+  .postcard__title { position: relative; inset: auto; order: -2; font-size: 26px; margin-bottom: 14px; }
+  .postcard__fromlabel { display: none; }
   .postcard__note .postcard__ps { font-size: 13px; }
   .postcard__from { font-size: calc(52px * var(--script-scale)); margin: 6px 0 16px; }
   .postcard__corner { order: -1; height: 120px; margin-bottom: 10px; }

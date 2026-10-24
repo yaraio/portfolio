@@ -274,11 +274,13 @@ export function Contact() {
     <section id="contact" className="section">
       <Heading script="Say" caps="hi" />
       <div className="postcard">
+        <p className="postcard__title">Postcard</p>
         <div className="postcard__note">
           <p className="postcard__hi">{postcard.greeting}</p>
           {postcard.body.map((l) => <p key={l}>{l}</p>)}
           <p className="postcard__ps">{postcard.ps}</p>
         </div>
+        <span className="postcard__fromlabel" aria-hidden="true">From:</span>
         <p className="postcard__from">{profile.first}</p>
         <div className="postcard__corner">
           <div className="postage" aria-hidden="true">
