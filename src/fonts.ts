@@ -5,7 +5,7 @@ export const FONTS = {
   script: 'Pinyon Script', // names, headings, signatures
   caps: 'Forum', // nav, eyebrows, labels
   body: 'Cormorant Garamond', // running text
-  tagline: { family: 'Cormorant Garamond', style: 'italic', weight: 500 }, // the line under the name
+  tagline: { family: 'Cormorant Garamond', style: 'normal', weight: 500 }, // the line under the name
   type: 'Cutive Mono', // captions, tags, typed notes
   scale: 0.82, // Pinyon runs large, so script sizes are scaled down
 };

@@ -30,6 +30,7 @@ html { scroll-behavior: smooth; overflow-x: clip; background: var(--page); }
 html.is-unfolding { overflow: hidden; }
 html { cursor: var(--quill, auto); }
 a, button, [role="button"], summary, label { cursor: var(--quill-tap, pointer); }
+button, input, textarea, select { font-family: inherit; }
 body { margin: 0; background: var(--page); color: var(--ink); font: 500 18px/1.65 var(--body); -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; display: block; }
 a { color: var(--accent); text-underline-offset: 3px; }
