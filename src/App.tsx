@@ -4,7 +4,6 @@ import { Hero, Work, Experience, About, Contact } from './components/Sections';
 import { profile } from './data/content';
 import { useSheet } from './paper/useSheet';
 import { hasVideo } from './paper/video';
-import FontPicker from './components/FontPicker';
 
 // three.js only loads when the intro plays. With public/paper/unwrap.mp4 the intro is
 // the filmed paper ball; without it, the 3D one.
@@ -66,7 +65,6 @@ export default function App() {
         <span className="caption">made by hand (and React) by {profile.first} {profile.last}, 2026</span>
         <button className="linkish caption" onClick={() => setIntro(true)}>crumple it up again</button>
       </footer>
-      {import.meta.env.VITE_FONT_PICKER && <FontPicker />}
       {intro && (
         <Suspense fallback={<div className="intro" />}>
           {video === null ? <div className="intro" /> : video ? <VideoIntro onDone={done} /> : <Intro sheet={sheet} onDone={done} />}

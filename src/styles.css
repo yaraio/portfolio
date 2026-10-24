@@ -16,9 +16,10 @@
   --desk: #2F2B27;
 
   --script: "Pinyon Script", "Snell Roundhand", "Apple Chancery", cursive; /* set from src/fonts.ts */
-  --script-scale: 1;
-  --caps: "Cinzel", "Trajan Pro", Georgia, serif;
-  --body: "Libre Baskerville", Baskerville, Georgia, serif;
+  --script-scale: .82;
+  --caps: "Forum", "Trajan Pro", Georgia, serif;
+  --body: "Cormorant Garamond", Garamond, Georgia, serif;
+  --tagline: "Cormorant Garamond", Garamond, Georgia, serif;
   --type: "Cutive Mono", "American Typewriter", "Courier New", monospace;
 
   --shadow: 0 1px 1px rgba(59, 42, 30, .1), 0 6px 10px -4px rgba(59, 42, 30, .2), 0 22px 34px -22px rgba(59, 42, 30, .45);
@@ -29,7 +30,7 @@ html { scroll-behavior: smooth; overflow-x: clip; background: var(--page); }
 html.is-unfolding { overflow: hidden; }
 html { cursor: var(--quill, auto); }
 a, button, [role="button"], summary, label { cursor: var(--quill-tap, pointer); }
-body { margin: 0; background: var(--page); color: var(--ink); font: 15.5px/1.75 var(--body); -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 500 18px/1.65 var(--body); -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; display: block; }
 a { color: var(--accent); text-underline-offset: 3px; }
 a:focus-visible, button:focus-visible { outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 4px; }
@@ -45,7 +46,7 @@ p { margin: 0 0 12px; }
 }
 
 .caption { font-family: var(--type); font-size: 13.5px; letter-spacing: .02em; color: var(--ink-soft); line-height: 1.5; }
-.eyebrow { font-family: var(--caps); font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.eyebrow { font-family: var(--caps); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
 .todo { font-family: var(--type); font-size: 14px; color: var(--accent); background: linear-gradient(transparent 55%, rgba(150, 140, 125, .28) 55%); display: inline; }
 
 .page, .nav, .footer {
@@ -57,7 +58,7 @@ p { margin: 0 0 12px; }
 .nav { position: absolute; left: 0; right: 0; top: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; gap: 10px 24px; flex-wrap: wrap; padding-block: 22px 6px; }
 .nav__sig { font-family: var(--script); font-size: calc((40px) * var(--script-scale)); color: var(--accent); text-decoration: none; line-height: 1; }
 .nav__links { display: flex; gap: 22px; flex-wrap: wrap; }
-.nav__links a { font-family: var(--caps); font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.nav__links a { font-family: var(--caps); font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
 .nav__links a:hover { color: var(--accent); }
 .nav, .hero__after { transition: opacity .7s ease .1s, transform .7s ease .1s; }
 .is-unfolding .nav, .is-unfolding .hero__after { opacity: 0; transform: translateY(-6px); transition: none; }
@@ -73,7 +74,7 @@ p { margin: 0 0 12px; }
 /* headings: script word + small caps word, like the pairing card */
 .heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 14px; color: var(--accent); line-height: 1; }
 .heading__script { font-family: var(--script); font-size: calc((clamp(64px, 10vw, 112px)) * var(--script-scale)); line-height: .9; }
-.heading__caps { font-family: var(--caps); font-size: clamp(22px, 3vw, 34px); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; color: var(--ink); }
+.heading__caps { font-family: var(--caps); font-size: clamp(22px, 3vw, 34px); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
 .section { padding-block: clamp(56px, 9vw, 110px) 0; }
 .section__note { margin: 8px 0 0; }
 
@@ -100,7 +101,7 @@ body { position: relative; }
 /* stamps, clip, seals */
 .stamp { position: absolute; z-index: 4; width: 116px; height: 116px; color: var(--accent); opacity: .82; mix-blend-mode: multiply; }
 .stamp--small { width: 74px; height: 74px; }
-.stamp__ring { font-family: var(--caps); font-weight: 600; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; fill: currentColor; }
+.stamp__ring { font-family: var(--caps); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; fill: currentColor; }
 .stamp__star { font-size: 20px; fill: currentColor; }
 .clip { position: absolute; z-index: 5; width: 26px; height: 72px; }
 .seal { position: absolute; z-index: 5; width: 84px; height: auto; filter: drop-shadow(0 2px 2px rgba(40,30,20,.35)) drop-shadow(0 6px 8px rgba(40,30,20,.18)); pointer-events: none; }
@@ -167,7 +168,7 @@ body { position: relative; }
 .pages__stack { display: grid; }
 .pages__page { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateX(14px); transition: opacity .35s ease, transform .35s ease, visibility 0s .35s; }
 .pages__page.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
-.pages__page h4 { font-family: var(--caps); font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin: 4px 0 6px; }
+.pages__page h4 { font-family: var(--caps); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin: 4px 0 6px; }
 .pages__page p { margin: 0 0 8px; }
 .pages__page ul { margin: 0 0 8px; padding-left: 18px; }
 .pages__page li { margin-bottom: 4px; }
@@ -190,10 +191,10 @@ body { position: relative; }
   filter: drop-shadow(0 2px 2px rgba(60, 45, 25, .16)) drop-shadow(0 12px 14px rgba(60, 45, 25, .14));
 }
 .notebook__page:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
-.notebook__org { font-family: var(--caps); font-size: 19px; font-weight: 600; color: var(--accent); line-height: 1.3; }
+.notebook__org { font-family: var(--caps); font-size: 19px; color: var(--accent); line-height: 1.3; }
 .notebook__when { margin-bottom: 2px; }
 .notebook__more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s ease; }
-.notebook__more > span { overflow: hidden; font-size: 14.5px; line-height: 26px; padding-top: 0; transition: padding-top .45s ease; }
+.notebook__more > span { overflow: hidden; font-size: 16.5px; line-height: 26px; padding-top: 0; transition: padding-top .45s ease; }
 .notebook__hint { position: absolute; right: 24px; bottom: 16px; font-size: 12px; opacity: .75; transition: opacity .3s; }
 .notebook__page.is-open .notebook__more, .notebook__page:focus-visible .notebook__more { grid-template-rows: 1fr; }
 .notebook__page.is-open .notebook__more > span { padding-top: 10px; }
@@ -212,7 +213,7 @@ body { position: relative; }
 .letter { position: relative; isolation: isolate; padding: clamp(40px, 5vw, 56px) clamp(30px, 4vw, 44px) clamp(40px, 5vw, 56px); transform: rotate(.8deg); filter: drop-shadow(0 2px 2px rgba(60, 45, 25, .16)) drop-shadow(0 14px 16px rgba(60, 45, 25, .16)); }
 /* the paper is a nine-slice: the corner that holds the clip keeps its shape, only the plain paper stretches */
 .letter::before { content: ""; position: absolute; inset: 0; z-index: -1; border-style: solid; border-color: transparent; border-width: 150px 75px 28px 28px; border-image: var(--clip-paper) 320 160 60 60 fill / 150px 75px 28px 28px stretch; }
-.letter p { font-size: 15.5px; }
+.letter p { font-size: 17.5px; }
 .letter > p:nth-child(-n + 2) { margin-right: 58px; } /* clear the clip */
 .letter .letter__dear { font-family: var(--script); font-size: calc((46px) * var(--script-scale)); color: var(--accent); line-height: 1.1; }
 .letter .letter__sign { font-family: var(--script); font-size: calc((54px) * var(--script-scale)); color: var(--accent); line-height: 1; margin: 16px 0 0; }
@@ -224,8 +225,8 @@ body { position: relative; }
 .toolkit__list { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 12px; }
 .toolkit__list li { font-family: var(--type); font-size: clamp(13px, 1.15vw, 15px); line-height: 1.7; color: #2E2A27; filter: url(#ink); }
 .award { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 12px; align-items: center; }
-.award strong { display: block; font-family: var(--caps); font-size: 14px; font-weight: 600; color: var(--accent); line-height: 1.35; }
-.award span { font-size: 13px; line-height: 1.45; display: block; }
+.award strong { display: block; font-family: var(--caps); font-size: 14px; color: var(--accent); line-height: 1.35; }
+.award span { font-size: 15px; line-height: 1.45; display: block; }
 
 /* about: a framed picture, and a torn note held by a clip */
 .about__side { display: grid; gap: 30px; justify-items: center; }
@@ -255,8 +256,8 @@ body { position: relative; }
 .cert:nth-child(even) { margin-top: 18px; }
 .cert__tag { display: block; width: 100%; height: auto; }
 .cert__text { position: absolute; left: 8%; right: 8%; top: 37%; bottom: 5%; display: grid; align-content: center; justify-items: center; gap: 4px; text-align: center; }
-.cert__issuer { font-family: var(--caps); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
-.cert__name { font-style: italic; font-size: 15px; line-height: 1.3; color: var(--accent); }
+.cert__issuer { font-family: var(--caps); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.cert__name { font-style: italic; font-size: 17px; line-height: 1.3; color: var(--accent); }
 .cert__year { font-size: 12.5px; }
 @media (max-width: 520px) {
   .certs__row { max-width: 280px; margin-inline: auto; }
@@ -273,7 +274,7 @@ body { position: relative; }
   box-shadow: 0 1px 1px rgba(40, 30, 20, .14), 0 10px 14px -8px rgba(40, 30, 20, .3), 0 34px 40px -30px rgba(40, 30, 20, .55);
 }
 .postcard__note { position: absolute; left: 4.6%; top: 15.5%; width: 41.5%; }
-.postcard__note p { margin: 0 0 .7em; font-style: italic; font-size: clamp(11px, 1.72cqw, 15.5px); line-height: 1.55; color: #2E2924; }
+.postcard__note p { margin: 0 0 .7em; font-style: italic; font-size: clamp(12px, 1.95cqw, 17.5px); line-height: 1.5; color: #2E2924; }
 .postcard__note .postcard__hi { font-family: var(--script); font-style: normal; font-size: calc((5.4cqw) * var(--script-scale)); line-height: 1; color: var(--accent); margin-bottom: .25em; }
 .postcard__note .postcard__ps { font-family: var(--type); font-style: normal; font-size: clamp(10px, 1.45cqw, 13px); color: var(--ink-soft); margin-top: 1em; }
 .postcard__from { position: absolute; left: 13.5%; top: 80.5%; margin: 0; font-family: var(--script); font-size: calc((6cqw) * var(--script-scale)); line-height: 1; color: var(--accent); transform: rotate(-4deg); }
@@ -298,7 +299,7 @@ body { position: relative; }
 @media (max-width: 680px) {
   .postcard { aspect-ratio: auto; transform: none; background: var(--postcard-blank) 0 0 / cover; padding: 26px 22px 30px; display: grid; }
   .postcard__note, .postcard__from, .postcard__corner, .postcard__lines { position: relative; inset: auto; width: auto; }
-  .postcard__note p { font-size: 15px; }
+  .postcard__note p { font-size: 17px; }
   .postcard__note .postcard__hi { font-size: calc(46px * var(--script-scale)); }
   .postcard__note .postcard__ps { font-size: 13px; }
   .postcard__from { font-size: calc(52px * var(--script-scale)); margin: 6px 0 16px; }
@@ -366,8 +367,4 @@ body { position: relative; }
 }
 
 /* preview only: font pairing picker */
-.fontpicker { position: fixed; left: 14px; bottom: 14px; z-index: 50; display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(250, 248, 244, .94); border: 1px solid var(--rule); border-radius: 999px; box-shadow: 0 6px 18px rgba(40, 30, 20, .18); font-family: var(--caps); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
-.fontpicker button { all: unset; cursor: var(--quill-tap, pointer); width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; color: var(--ink); }
-.fontpicker button.is-on { background: var(--accent); color: #F5F1EA; }
-.fontpicker em { font-family: var(--type); font-style: normal; text-transform: none; letter-spacing: 0; font-size: 12px; margin-left: 4px; }
-@media (max-width: 520px) { .fontpicker em { display: none; } }
+

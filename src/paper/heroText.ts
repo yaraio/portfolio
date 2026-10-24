@@ -11,8 +11,8 @@ export async function loadHeroFonts() {
   try {
     await Promise.all([
       document.fonts.load(`100px "${FONTS.script}"`),
-      document.fonts.load('600 20px "Cinzel"'),
-      document.fonts.load('italic 20px "Libre Baskerville"'),
+      document.fonts.load(`20px "${FONTS.caps}"`),
+      document.fonts.load(`${FONTS.tagline.style} ${FONTS.tagline.weight} 20px "${FONTS.tagline.family}"`),
       document.fonts.load(`20px "${FONTS.type}"`),
     ]);
   } catch { /* draw with fallbacks */ }
@@ -40,7 +40,7 @@ export function drawHero(ctx: CanvasRenderingContext2D, W: number, H: number) {
   ctx.globalAlpha = 0.92; // printed ink, not pure colour
 
   ctx.fillStyle = INK;
-  ctx.font = `600 ${Math.max(11, unit * 0.022)}px Cinzel, Georgia, serif`;
+  ctx.font = `${Math.max(11, unit * 0.022)}px "${FONTS.caps}", Georgia, serif`;
   ctx.letterSpacing = `${unit * 0.008}px`;
   ctx.fillText('PORTFOLIO  ·  MMXXVI', cx, H * 0.27);
   ctx.letterSpacing = '0px';
@@ -51,8 +51,8 @@ export function drawHero(ctx: CanvasRenderingContext2D, W: number, H: number) {
   ctx.fillText(profile.last, cx + unit * 0.07, H * 0.4 + unit * 0.15);
 
   ctx.fillStyle = INK;
-  const tagSize = Math.max(14, unit * 0.024);
-  ctx.font = `italic ${tagSize}px "Libre Baskerville", Georgia, serif`;
+  const tagSize = Math.max(16, unit * 0.028);
+  ctx.font = `${FONTS.tagline.style} ${FONTS.tagline.weight} ${tagSize}px "${FONTS.tagline.family}", Georgia, serif`;
   const lines = wrap(ctx, profile.tagline, Math.min(W - 48, unit * 0.62));
   const ty = H * 0.4 + unit * 0.27;
   lines.forEach((l, i) => ctx.fillText(l, cx, ty + i * tagSize * 1.6));
