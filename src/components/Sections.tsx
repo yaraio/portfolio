@@ -158,7 +158,12 @@ function ExperiencePage({ e, i }: { e: (typeof experience)[number]; i: number })
       className={`notebook__page${open ? ' is-open' : ''}`}
       style={{ ['--tilt' as string]: `${[-1.6, 1.2, -0.7][i % 3]}deg` }}
       aria-expanded={open}
-      onClick={() => setOpen(!open)}
+      onClick={(ev) => {
+        // a mouse already opens the page by hovering, so a click shouldn't pin it open;
+        // taps and the keyboard (detail 0) toggle it
+        if (ev.detail > 0 && matchMedia('(hover: hover)').matches) return;
+        setOpen(!open);
+      }}
     >
       {i === 1 && <Tape variant="gingham" style={{ top: -14, left: '50%', marginLeft: -48, transform: 'rotate(3deg)' }} />}
       <span className="caption notebook__when">{e.when}</span>

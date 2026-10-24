@@ -1,6 +1,7 @@
-// Real paper: if public/paper/crumpled.jpg exists, the site uses that photo instead of
-// the drawn paper. It repeats down the page (every other copy flipped so the joins
-// line up), and its colour is evened out to one neutral tone so any photo fits.
+// Real paper: if public/paper/crumpled.jpg exists, the site uses it instead of the drawn
+// paper. It's a tall texture built from real photos (the Pexels sheet, the creases of the
+// flat sheet at the end of the intro video, paper fibres) whose bottom runs into its top,
+// so it repeats down the page with no join. Its colour is evened out to one paper tone.
 
 export const PHOTO_URL = `${import.meta.env.BASE_URL}paper/crumpled.jpg`;
 
@@ -14,23 +15,18 @@ export function loadPhoto(url = PHOTO_URL): Promise<HTMLImageElement | null> {
 }
 
 /**
- * Evens the photo out to one paper tone and stacks it on a flipped copy of itself,
- * so it can repeat down the page with no visible joins.
+ * Evens the photo out to one paper tone.
  * tone: the paper colour, as [r, g, b]. contrast: how strongly the creases show (1 = as photographed).
  */
-export function bakeFromPhoto(img: HTMLImageElement, tone: readonly number[], contrast = 2.6) {
+export function bakeFromPhoto(img: HTMLImageElement, tone: readonly number[], contrast = 1.8) {
   const cw = Math.min(1600, img.naturalWidth);
   const th = Math.round((img.naturalHeight / img.naturalWidth) * cw);
-  const ch = th * 2;
+  const ch = th;
   const canvas = document.createElement('canvas');
   canvas.width = cw; canvas.height = ch;
   const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
   ctx.imageSmoothingQuality = 'high';
   ctx.drawImage(img, 0, 0, cw, th);
-  ctx.save();
-  ctx.translate(0, ch); ctx.scale(1, -1);
-  ctx.drawImage(img, 0, 0, cw, th);
-  ctx.restore();
 
   const data = ctx.getImageData(0, 0, cw, ch);
   const d = data.data;
