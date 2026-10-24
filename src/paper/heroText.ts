@@ -1,4 +1,5 @@
 import { profile } from '../data/content';
+import { FONTS } from '../fonts';
 
 // The words printed on the sheet's first screen. Drawn with canvas in both places
 // (the 3D intro's texture and the page itself) so they line up exactly.
@@ -9,10 +10,10 @@ export const INK_SOFT = '#4A423A';
 export async function loadHeroFonts() {
   try {
     await Promise.all([
-      document.fonts.load('100px "Luxurious Script"'),
+      document.fonts.load(`100px "${FONTS.script}"`),
       document.fonts.load('600 20px "Cinzel"'),
       document.fonts.load('italic 20px "Libre Baskerville"'),
-      document.fonts.load('20px "Special Elite"'),
+      document.fonts.load(`20px "${FONTS.type}"`),
     ]);
   } catch { /* draw with fallbacks */ }
 }
@@ -45,7 +46,7 @@ export function drawHero(ctx: CanvasRenderingContext2D, W: number, H: number) {
   ctx.letterSpacing = '0px';
 
   ctx.fillStyle = INK;
-  ctx.font = `${unit * 0.2}px "Luxurious Script", cursive`;
+  ctx.font = `${unit * 0.2 * FONTS.scale}px "${FONTS.script}", cursive`;
   ctx.fillText(profile.first, cx - unit * 0.07, H * 0.4);
   ctx.fillText(profile.last, cx + unit * 0.07, H * 0.4 + unit * 0.15);
 
@@ -56,7 +57,7 @@ export function drawHero(ctx: CanvasRenderingContext2D, W: number, H: number) {
   const ty = H * 0.4 + unit * 0.27;
   lines.forEach((l, i) => ctx.fillText(l, cx, ty + i * tagSize * 1.6));
 
-  ctx.font = `${Math.max(11.5, unit * 0.017)}px "Special Elite", "Courier New", monospace`;
+  ctx.font = `${Math.max(11.5, unit * 0.017)}px "${FONTS.type}", "Courier New", monospace`;
   ctx.fillStyle = INK_SOFT;
   const capLines = wrap(ctx, profile.caption, W - 48);
   const cy = ty + lines.length * tagSize * 1.6 + unit * 0.03;

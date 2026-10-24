@@ -63,5 +63,17 @@ export function installTextures() {
   const deco = (f: string) => file(`images/deco/${f}`);
   root.setProperty('--deckle', deco('deckle.webp'));
   for (const [k, f] of [['spiral', 'spiral.webp'], ['photocard', 'photocard.webp'], ['clip-paper', 'paper-clip-tall.webp'], ['collage', 'collage.webp'], ['scrap', 'scrap.webp'], ['postcard', 'postcard.jpg'], ['postcard-blank', 'postcard-blank.jpg']]) root.setProperty(`--${k}`, deco(f));
+  // Quill cursor; the hotspot is the nib tip at the bottom-left.
+  const raw = (f: string) => new URL(import.meta.env.BASE_URL + `images/deco/${f}`, document.baseURI).href;
+  const quill = (f: string, fallback: string) =>
+    `url(${raw(f + '.png')}) 1 31, ${fallback}`;
+  const quillSet = (f: string, fallback: string) =>
+    `image-set(url(${raw(f + '.png')}) 1x, url(${raw(f + '@2x.png')}) 2x) 1 31, ${fallback}`;
+  root.setProperty('--quill', quill('quill', 'auto'));
+  root.setProperty('--quill-tap', quill('quill-tap', 'pointer'));
+  if (CSS.supports('cursor', quillSet('quill', 'auto'))) {
+    root.setProperty('--quill', quillSet('quill', 'auto'));
+    root.setProperty('--quill-tap', quillSet('quill-tap', 'pointer'));
+  }
   for (const w of ['kraft', 'kraft-tex', 'cream', 'cream-tex', 'mauve', 'olive']) root.setProperty(`--washi-${w}`, deco(`washi-${w}.png`));
 }
