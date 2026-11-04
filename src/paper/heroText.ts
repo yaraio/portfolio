@@ -11,8 +11,7 @@ export async function loadHeroFonts() {
   try {
     await Promise.all([
       document.fonts.load(`100px "${FONTS.script}"`),
-      document.fonts.load(`20px "${FONTS.caps}"`),
-      document.fonts.load(`${FONTS.tagline.style} ${FONTS.tagline.weight} 20px "${FONTS.tagline.family}"`),
+            document.fonts.load(`${FONTS.tagline.style} ${FONTS.tagline.weight} 20px "${FONTS.tagline.family}"`),
       document.fonts.load(`20px "${FONTS.type}"`),
     ]);
   } catch { /* draw with fallbacks */ }
@@ -40,12 +39,6 @@ export function drawHero(ctx: CanvasRenderingContext2D, W: number, H: number) {
   ctx.globalAlpha = 0.92; // printed ink, not pure colour
 
   ctx.fillStyle = INK;
-  ctx.font = `${Math.max(11, unit * 0.022)}px "${FONTS.caps}", Georgia, serif`;
-  ctx.letterSpacing = `${unit * 0.008}px`;
-  ctx.fillText('PORTFOLIO  ·  MMXXVI', cx, H * 0.27);
-  ctx.letterSpacing = '0px';
-
-  ctx.fillStyle = INK;
   ctx.font = `${unit * 0.2 * FONTS.scale}px "${FONTS.script}", cursive`;
   ctx.fillText(profile.first, cx - unit * 0.07, H * 0.4);
   ctx.fillText(profile.last, cx + unit * 0.07, H * 0.4 + unit * 0.15);
@@ -57,8 +50,8 @@ export function drawHero(ctx: CanvasRenderingContext2D, W: number, H: number) {
   const ty = H * 0.4 + unit * 0.27;
   lines.forEach((l, i) => ctx.fillText(l, cx, ty + i * tagSize * 1.6));
 
-  ctx.font = `${Math.max(11.5, unit * 0.017)}px "${FONTS.type}", "Courier New", monospace`;
-  ctx.fillStyle = INK_SOFT;
+  ctx.font = `${Math.max(12.5, unit * 0.019)}px "${FONTS.type}", "Courier New", monospace`;
+  ctx.fillStyle = INK;
   const capLines = wrap(ctx, profile.caption, W - 48);
   const cy = ty + lines.length * tagSize * 1.6 + unit * 0.03;
   capLines.forEach((l, i) => ctx.fillText(l, cx, cy + i * unit * 0.03));
