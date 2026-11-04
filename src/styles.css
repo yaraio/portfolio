@@ -240,7 +240,7 @@ body { position: relative; }
 .idcard { position: relative; width: 100%; max-width: 390px; container-type: inline-size; aspect-ratio: 700 / 585; padding: 15% 14% 21% 12%; background: var(--photocard) 0 0 / 100% 100% no-repeat; transform: rotate(-2deg); filter: drop-shadow(0 2px 2px rgba(60, 45, 25, .16)) drop-shadow(0 12px 14px rgba(60, 45, 25, .16)); display: grid; align-content: center; }
 .idcard__name { margin: 0; font-family: var(--script); font-size: calc(17cqw * var(--script-scale)); line-height: .95; color: var(--accent); }
 .idcard__lines { list-style: none; margin: 8px 0 0; padding: 8px 0 0; border-top: 1px solid rgba(91, 74, 59, .35); }
-.idcard__lines li { font-family: var(--type); font-size: 4.85cqw; line-height: 1.65; color: #34302C; white-space: nowrap; }
+.idcard__lines li { font-family: var(--type); font-size: 4.85cqw; line-height: 1.65; color: #34302C; white-space: pre; }
 .idcard__lines span { display: inline-block; filter: url(#ink); }
 
 /* certifications: kraft gift tags on twine */

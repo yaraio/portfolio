@@ -156,7 +156,7 @@ export const indexCard = [
   'minor in Comparative Literature',
   'Cornell University, class of 2029',
   'from Southeast Michigan',
-  'hobbies: gym, wellness & being creative',
+  'hobbies: gym, wellness & being\n         creative', // \n starts a new line, lined up under the first word
 ];
 
 // The postcard at the bottom of the page. Write it the way you'd actually say it.
