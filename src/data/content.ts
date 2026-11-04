@@ -163,7 +163,7 @@ export const indexCard = [
 export const postcard = {
   greeting: 'Hi there,',
   body: [
-    "Thanks for reading all the way down here. I'm currently looking for internships and research in product, design and UI/UX! Whether is a new opportunity, creative insight or conversation, or anything in between, feel free to write to me."
+    "Thanks for reading all the way down here and visiting my mind palace. I'm currently looking for internships and research in product, design and UI/UX! Whether is a new opportunity, creative insight or conversation, or anything in between, feel free to write to me."
   ],
   postmark: { top: 'Ithaca · NY', bottom: '2026' },
 };
