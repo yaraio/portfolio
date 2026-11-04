@@ -19,7 +19,7 @@ export type Project = {
 export const profile = {
   first: 'Yara',
   last: 'Ibrahim',
-  tagline: 'I design and build products that feel thoughtful, warm and a little bit delightful to use.',
+  tagline: 'I pour my heart into designing and building products that are thoughtful and delightful to use.',
   caption: 'Information Science, Systems & Technology @ Cornell · class of 2029',
   roles: ['product design', 'UI/UX', 'product management'],
   email: 'yi98@cornell.edu',
@@ -35,28 +35,29 @@ export const projects: Project[] = [
     title: 'Tracklist',
     kicker: 'iOS app · Cornell AppDev Hack Challenge',
     when: 'May 2026',
-    role: 'Frontend design & engineering',
+    role: 'Frontend design and UI implementation',
     summary:
       'A study app that turns your to-do list into a vinyl record. Every task is a track, a progress ring fills as you finish them, and clearing the list completes Side A.',
-    tools: ['SwiftUI', 'Figma', 'Custom animation', 'Haptics'],
+    tools: ['SwiftUI', 'Figma', 'Custom animation', 'CodeX'],
     award: 'Best Design',
     images: ['tracklist.webp'],
     imageNote: 'Tracklist screenshots',
     story: [
       {
         heading: 'The brief',
-        body: 'Ship a native iOS app with a real backend in a few weeks. We wanted studying to feel less like a chore list and more like putting on a record.',
+        body: 'Tracklist is a music-themed native iOS study app that gamifies task completion through a vinyl record progress ring. Every task you add becomes a track on the record — as you complete them, the ring fills. When all tasks are done, Side A is complete.',
       },
       {
         heading: 'What I did',
         bullets: [
           'Designed and built the full SwiftUI frontend, from task creation to the focus timer.',
           'Created the record-inspired visual system and the vinyl progress ring.',
+          'Expandable music player UI on each task with a real time countdown timer and scrubbable progress bar',
           'Built custom animations, including a spinning disc on completion and a record-scratch haptic when a timer runs out.',
           'Worked with the backend team so live data stayed on-theme.',
         ],
       },
-      { heading: 'How it landed', body: 'Won Best Design out of 8 teams.' },
+      { heading: 'How it landed', body: 'Won Best Design out of 8 teams in the AppDev Hack Challenge at Cornell Unviersity.' },
     ],
     link: { label: 'see the code', href: 'https://github.com/yaraio/hackchallenge-frontend' },
   },
@@ -67,8 +68,8 @@ export const projects: Project[] = [
     when: 'May 2026',
     role: 'Co-developer, product & ML',
     summary:
-      'A dashboard that lets small retailers test a price change or a restock before it costs them money, with an AI forecaster that spots where profit is leaking.',
-    tools: ['React', 'TypeScript', 'Chart.js', 'LSTM'],
+      'A dashboard that lets businesses test a price change or a restock before it costs them money, with an AI forecaster that spots where profit is leaking.',
+    tools: ['React', 'TypeScript','LSTM'],
     award: '3rd Place',
     images: ['flux.webp'],
     imageNote: 'Flux dashboard screenshot',
@@ -76,12 +77,13 @@ export const projects: Project[] = [
       {
         heading: 'What I did',
         bullets: [
-          'Co-built revenue, profit and margin views across 16 retail products.',
+          'Co-built revenue, profit and margin views across various retail products.',
           'Built an LSTM forecaster on historical sales to project inventory and flag profit leaks, with plain-language next steps for owners.',
           'Shaped the what-if simulator: price and stock sliders with a live profit curve.',
+          'Transparent feedback and confidence scales show the plausible risks of various business decisions before action.'
         ],
       },
-      { heading: 'How it landed', body: 'Placed 3rd of 10 teams.' },
+      { heading: 'How it landed', body: 'Placed 3rd of 10 teams in the URMC x WICC 1st AmplifyHacks Hackathon at Cornell University.' },
     ],
     link: { label: 'see the code', href: 'https://github.com/yaraio/flux' },
   },
@@ -92,7 +94,7 @@ export const projects: Project[] = [
     when: 'Feb – Oct 2026',
     role: 'Development & marketing',
     summary:
-      "The site, app and merch for Southeast Michigan's largest hackathon, built alongside the team that ran it.",
+      "The site, app, merch, and all things designing and implementing for Southeast Michigan's largest hackathon, built alongside the team that ran it.",
     tools: ['React', 'TypeScript', 'Figma', 'Canva'],
     images: ['hackdearborn.webp'],
     imageNote: 'site, app or merch photo',
@@ -107,7 +109,7 @@ export const projects: Project[] = [
       },
       {
         heading: 'How it landed',
-        body: 'About 300 hackers came for the weekend, the biggest hackathon in Southeast Michigan, and more than 15 sponsors signed on, including Google, Red Bull and Ford. The site and merch were the first thing every one of them saw.',
+        body: 'About 200 hackers came for the weekend, one of the biggest hackathons in Southeast Michigan, and more than 15 sponsors signed on, including Google, AMD, and Ford. Recieved immense positive feedback and recognition for the devotion to the theme, Conjure Reality, shown through the site and merch.',
       },
     ],
   },
@@ -124,13 +126,13 @@ export const experience = [
     when: 'Jan 2026 – now',
     org: 'Women of MENA Magazine',
     role: 'Secretary',
-    body: 'Run meetings, sponsor outreach and editorial planning for a Cornell publication, and help host events with nearly 10 sponsors and clubs.',
+    body: 'Ran meetings, sponsor outreach and editorial planning for a Cornell publication, and help host events with nearly 10 sponsors and clubs.',
   },
   {
     when: 'Feb – Oct 2026',
     org: 'Hack Dearborn 5',
     role: 'Development & Marketing',
-    body: 'Built the site and designed everything from app screens to merch for a 300-person hackathon.',
+    body: 'Built the site and designed everything from app screens to merch for a 200-person hackathon.',
   },
 ];
 
@@ -143,11 +145,10 @@ export const awards = [
 export const toolkit = ['Figma', 'Prototyping', 'User research', 'Product strategy', 'SwiftUI', 'React', 'TypeScript', 'Python', 'Java'];
 
 export const letter = [
-  'I study Information Science at Cornell, with a minor in Comparative Literature, because I care about how technology works and how stories get told. Good products need both.',
-  'I love projects with a theme strong enough to shape every detail. Tracklist started as "what if a to-do list felt like a record?" and that one idea decided everything from the progress ring to the haptics.',
+  'As a sophomore studying Information Science at Cornell, with a minor in Comparative Literature, I am passionate about how technology works and the impact it has on society.',
+  'I love projects with a theme strong enough to shape every detail, with real, tangible, impact that can serve the user or consumer. Designing and implementing products and projects with grand purpose is at the heart of my work.'
 ];
-// Add a line in your own words here, like what first pulled you into design.
-export const letterTodo = 'Add a line or two in your own words here, like what first pulled you into design.';
+export const letterTodo = 'As someone with grand experience in web and app development, I greatly value the impact that design has on the perception and utilization of a technology, a phenomenon that pulled me into design and which continues to fascinate me.';
 
 // The typed index card in About.
 export const indexCard = [
@@ -155,17 +156,15 @@ export const indexCard = [
   'minor in Comparative Literature',
   'Cornell University, class of 2029',
   'from Southeast Michigan',
-  'into: product, UX & good stories',
+  'hobbies: gym, wellness & being creative',
 ];
 
 // The postcard at the bottom of the page. Write it the way you'd actually say it.
 export const postcard = {
   greeting: 'Hi there,',
   body: [
-    "Thanks for reading all the way down here. I'm looking for internships and research in product, design and UI/UX, but honestly I'm just as happy to talk shop.",
-    "If you're building something thoughtful, or you have a favorite app and a strong opinion about why, write to me.",
+    "Thanks for reading all the way down here. I'm currently looking for internships and research in product, design and UI/UX! Whether is a new opportunity, creative insight or conversation, or anything in between, feel free to write to me."
   ],
-  ps: 'P.S. Every project here started as one small "what if." I\'d love to hear yours.',
   postmark: { top: 'Ithaca · NY', bottom: '2026' },
 };
 
