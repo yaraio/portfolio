@@ -51,7 +51,7 @@ export default function App() {
           <a href="#work">work</a>
           <a href="#experience">experience</a>
           <a href="#about">about</a>
-          <a href="#contact">say hi</a>
+          <a href="#contact">write to me</a>
         </div>
       </nav>
       <main className="page">

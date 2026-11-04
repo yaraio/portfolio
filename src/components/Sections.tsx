@@ -272,7 +272,7 @@ export function Contact() {
   };
   return (
     <section id="contact" className="section">
-      <Heading script="Say" caps="hi" />
+      <Heading script="Write" caps="to me" />
       <div className="postcard">
         <p className="postcard__title">Postcard</p>
         <div className="postcard__note">
