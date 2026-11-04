@@ -214,7 +214,7 @@ export function About() {
         <div className="letter">
           <p className="letter__dear">Dear reader,</p>
           {letter.map((l) => <p key={l}>{l}</p>)}
-          <p className="todo">{letterTodo}</p>
+          <p>{letterTodo}</p>
           <p className="letter__sign">{profile.first}</p>
           <img className="seal seal--small" src={deco('seal-sprig.webp')} alt="" aria-hidden="true" style={{ right: 34, bottom: 34, transform: 'rotate(-8deg)' }} />
         </div>
@@ -278,7 +278,6 @@ export function Contact() {
         <div className="postcard__note">
           <p className="postcard__hi">{postcard.greeting}</p>
           {postcard.body.map((l) => <p key={l}>{l}</p>)}
-          <p className="postcard__ps">{postcard.ps}</p>
         </div>
         <span className="postcard__fromlabel" aria-hidden="true">From:</span>
         <p className="postcard__from">{profile.first}</p>

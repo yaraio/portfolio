@@ -57,7 +57,7 @@ export const projects: Project[] = [
           'Worked with the backend team so live data stayed on-theme.',
         ],
       },
-      { heading: 'How it landed', body: 'Won Best Design out of 8 teams in the AppDev Hack Challenge at Cornell Unviersity.' },
+      { heading: 'How it landed', body: 'Won Best Design out of 8 teams in the AppDev Hack Challenge at Cornell University.' },
     ],
     link: { label: 'see the code', href: 'https://github.com/yaraio/hackchallenge-frontend' },
   },
@@ -109,7 +109,7 @@ export const projects: Project[] = [
       },
       {
         heading: 'How it landed',
-        body: 'About 200 hackers came for the weekend, one of the biggest hackathons in Southeast Michigan, and more than 15 sponsors signed on, including Google, AMD, and Ford. Recieved immense positive feedback and recognition for the devotion to the theme, Conjure Reality, shown through the site and merch.',
+        body: 'About 200 hackers came for the weekend, one of the biggest hackathons in Southeast Michigan, and more than 15 sponsors signed on, including Google, AMD, and Ford. Received immense positive feedback and recognition for the devotion to the theme, Conjure Reality, shown through the site and merch.',
       },
     ],
   },
@@ -163,7 +163,7 @@ export const indexCard = [
 export const postcard = {
   greeting: 'Hi there,',
   body: [
-    "Thanks for reading all the way down here and visiting my secret garden. I'm currently looking for internships and research in product, design and UI/UX! Whether is a new opportunity, creative insight or conversation, or anything in between, feel free to write to me."
+    "Thanks for reading all the way down here and visiting my secret garden. I'm currently looking for internships and research in product, design and UI/UX! Whether it's a new opportunity, creative insight or conversation, or anything in between, feel free to write to me."
   ],
   postmark: { top: 'Ithaca · NY', bottom: '2026' },
 };
