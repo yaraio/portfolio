@@ -236,7 +236,7 @@ body { position: relative; }
 .about__side { display: grid; gap: 30px; justify-items: center; }
 .oval { position: relative; margin: 0; width: 72%; max-width: 220px; transform: rotate(-2deg); filter: drop-shadow(0 3px 3px rgba(60, 45, 25, .25)) drop-shadow(0 14px 16px rgba(60, 45, 25, .18)); }
 .oval__frame { position: relative; display: block; width: 100%; height: auto; }
-.oval__photo { position: absolute; left: 7.7%; top: 10.7%; width: 84.6%; height: 78.6%; object-fit: cover; border-radius: 50%; }
+.oval__photo { position: absolute; left: 7.7%; top: 10.7%; width: 84.6%; height: 78.6%; object-fit: cover; object-position: 50% 22%; border-radius: 50%; }
 .idcard { position: relative; width: 100%; max-width: 390px; container-type: inline-size; aspect-ratio: 700 / 585; padding: 15% 14% 21% 12%; background: var(--photocard) 0 0 / 100% 100% no-repeat; transform: rotate(-2deg); filter: drop-shadow(0 2px 2px rgba(60, 45, 25, .16)) drop-shadow(0 12px 14px rgba(60, 45, 25, .16)); display: grid; align-content: center; }
 .idcard__name { margin: 0; font-family: var(--script); font-size: calc(17cqw * var(--script-scale)); line-height: .95; color: var(--accent); }
 .idcard__lines { list-style: none; margin: 8px 0 0; padding: 8px 0 0; border-top: 1px solid rgba(91, 74, 59, .35); }

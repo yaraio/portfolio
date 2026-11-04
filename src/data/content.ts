@@ -25,7 +25,7 @@ export const profile = {
   email: 'yi98@cornell.edu',
   linkedin: 'https://www.linkedin.com/in/yaraibrahimm',
   github: 'https://github.com/yaraio',
-  photo: '', // e.g. 'me.jpg' in /public/images
+  photo: 'headshot.webp', // in /public/images
   home: 'Southeast Michigan',
 };
 
@@ -40,7 +40,7 @@ export const projects: Project[] = [
       'A study app that turns your to-do list into a vinyl record. Every task is a track, a progress ring fills as you finish them, and clearing the list completes Side A.',
     tools: ['SwiftUI', 'Figma', 'Custom animation', 'Haptics'],
     award: 'Best Design',
-    images: [],
+    images: ['tracklist.webp'],
     imageNote: 'Tracklist screenshots',
     story: [
       {
@@ -70,7 +70,7 @@ export const projects: Project[] = [
       'A dashboard that lets small retailers test a price change or a restock before it costs them money, with an AI forecaster that spots where profit is leaking.',
     tools: ['React', 'TypeScript', 'Chart.js', 'LSTM'],
     award: '3rd Place',
-    images: [],
+    images: ['flux.webp'],
     imageNote: 'Flux dashboard screenshot',
     story: [
       {
@@ -94,7 +94,7 @@ export const projects: Project[] = [
     summary:
       "The site, app and merch for Southeast Michigan's largest hackathon, built alongside the team that ran it.",
     tools: ['React', 'TypeScript', 'Figma', 'Canva'],
-    images: [],
+    images: ['hackdearborn.webp'],
     imageNote: 'site, app or merch photo',
     story: [
       {
